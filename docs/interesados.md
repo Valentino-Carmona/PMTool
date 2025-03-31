@@ -56,7 +56,7 @@ quadrantChart
 
 ## Diagrama de Stakeholders
 
-![Modelo de Cebolla para PMTool](mermaid-onionModel.png)
+![Modelo de Cebolla para PMTool](./img/mermaid-onionModel.png)
 
 ## Capas del Modelo y Actores
 
