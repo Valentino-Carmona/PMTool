@@ -19,7 +19,7 @@ Los interesados (stakeholders) de PMTool han sido identificados basándose en lo
 
 3. **Recurso**  
    - **Descripción**: Miembros del equipo o contratistas asignados a actividades específicas.  
-   - **Origen**: Requisito 3.2.6. Los requisitos 3.2.1–3.2.9 implican ejecución por recursos.  
+   - **Origen**: Requisito 3.2.6. Los requisitos 3.2.1–3.2.9 implican ejecución de actividades.  
    - **Rol en PMTool**: Responsable de actividades
 
 4. **Organización**  

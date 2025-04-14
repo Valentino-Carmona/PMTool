@@ -37,19 +37,21 @@ La solución PMTool permite a los usuarios:
 3.1.1.1 Cuando se crea un proyecto, el estado inicial de este sera "PLANIFICADO"
 3.1.2 Se podrán establecer fechas planificadas de inicio y fin para proyectos, lo que hara que automaticamente pase al estado "EN_CURSO".  
 3.1.3 El estado del proyecto se actualizará automáticamente según el estado de sus actividades.  
-3.1.4 Un proyecto solo podrá finalizar cuando todas sus actividades estén con el estado "COMPLETADA".  
+3.1.4 Un proyecto solo podrá estar como "FINALIZADO" cuando todas sus actividades estén con el estado "COMPLETADA".  
 
 3.2 **Gestión de Actividades**
-3.2.1 Será posible crear actividades principales dentro de un proyecto.  
+3.2.1 Será posible crear actividades principales con un nombre y horas estimadas dentro de un proyecto.  
 3.2.1.1 Cuando se crea una actividad, el estado inicial de esta sera "PLANIFICADO"
 3.2.2 El sistema permitirá la creación de jerarquías en las actividades.
-3.2.2.1 Los números EDT se asignarán automáticamente a las actividades según su jerarquía. 
+3.2.2.1 Los números EDT se asignarán automáticamente a las actividades según su jerarquía y seran unicos. 
 3.2.2.2 Se mostrará la jerarquía completa de actividades con su numeración EDT. 
 3.2.3 Se podrán crear subactividades dentro de actividades existentes.   
 3.2.4 Será posible establecer fechas planificadas para actividades.  
 3.2.5 Se podrá cambiar el estado de las actividades a PLANIFICADA, EN_EJECUCION o COMPLETADA.  
 3.2.5.1 Será posible activar una actividad, lo que cambiará su estado a "EN_EJECUCION".  
-3.2.5.2 Será posible desactivar una actividad, lo que cambiará su estado a "COMPLETADA". 
+3.2.5.1.1 La fecha real de inicio se registrará automáticamente al activar una actividad.  
+3.2.5.2 Será posible marcar una actividad como "COMPLETADA", lo que reflejará su finalización en el sistema.  
+3.2.5.2.1 La fecha real de finalización se registrará automáticamente al completar una actividad.
 3.2.5.3 Será posible visualizar el historial de cambios en el estado de cada actividad.
 3.2.6 Será posible asignar responsables a cada actividad.  
 3.2.7 Se podrán registrar comentarios o notas en cada actividad para facilitar el seguimiento.    
@@ -76,44 +78,46 @@ La solución PMTool permite a los usuarios:
 
 
 ## Matriz de Trazabilidad
-| **Código** | **Descripción**                                                                 | **Categoría**           | **Asociaciones con otros requisitos** | **Prioridad** |
-|------------|---------------------------------------------------------------------------------|-------------------------|---------------------------------------|---------------|
-| 1.1        | Gestión de portafolios con estructura jerárquica                                | Negocio                 | 5.1                                   | Alta          |
-| 1.2        | Planificación y seguimiento mediante EDT                                        | Negocio                 | 2.3, 3.2.2, 5.2                      | Alta          |
+| **Código** | **Descripción**                                                                 | **Categoría**           | **Asociaciones con otros requisitos** | **Prioridad** | **Historias de Dominio** |
+|------------|---------------------------------------------------------------------------------|-------------------------|---------------------------------------|---------------|--------------------------|
+| 1.1        | Gestión de portafolios con estructura jerárquica                                | Negocio                 | 5.1                                   | Alta          | PMTool-001 |
+| 1.2        | Planificación y seguimiento mediante EDT                                        | Negocio                 | 2.3, 3.2.2, 5.2                      | Alta          | PMTool-002 |
 | 1.3        | Todas las actividades completadas para finalizar proyecto                       | Negocio                 | 2.6, 3.1.4, 6.2                      | Alta          |
 | 1.4        | Control de tiempos planificados y reales                                        | Negocio                 | 2.2, 3.1.2, 3.2.4                    | Media         |
-| 1.5        | Gestión del presupuesto asignado a proyectos                                    | Negocio                 | 2.1, 3.1.1                           | Media         |
-| 2.1        | Crear proyectos con nombre, horas estimadas y presupuesto                       | Usuario                 | 1.5, 3.1.1                           | Alta          |
+| 1.5        | Gestión del presupuesto asignado a proyectos                                    | Negocio                 | 2.1, 3.1.1                           | Media         | PMTool-001 |
+| 2.1        | Crear proyectos con nombre, horas estimadas y presupuesto                       | Usuario                 | 1.5, 3.1.1                           | Alta          | PMTool-001 |
 | 2.2        | Planificar fechas de inicio y fin para proyectos                                | Usuario                 | 1.4, 3.1.2                           | Alta          |
-| 2.3        | Crear actividades organizadas en EDT                                            | Usuario                 | 1.2, 3.2.1, 3.2.2                    | Alta          |
+| 2.3        | Crear actividades organizadas en EDT                                            | Usuario                 | 1.2, 3.2.1, 3.2.2                    | Alta          | PMTool-002 |
 | 2.4        | Visualizar jerarquía completa de actividades                                    | Usuario                 | 3.2.2.2, 5.2                         | Media         |
-| 2.5        | Activar o desactivar actividades para reflejar estado                           | Usuario                 | 3.2.5, 3.2.5.1, 3.2.5.2              | Alta          |
+| 2.5        | Activar o desactivar actividades para reflejar estado                           | Usuario                 | 3.2.5, 3.2.5.1, 3.2.5.2              | Alta          | PMTool-003 |
 | 2.6        | Finalizar proyecto solo si todas las actividades completadas                    | Usuario                 | 1.3, 3.1.4, 6.2                      | Alta          |
-| 3.1.1      | Crear proyecto con nombre, horas estimadas y presupuesto                        | Funcional               | 1.5, 2.1, 3.1.1.1                    | Alta          |
-| 3.1.1.1    | Estado inicial del proyecto: PLANIFICADO                                        | Funcional               | 3.1.1                                 | Media         |
-| 3.1.2      | Establecer fechas planificadas y pasar a EN_CURSO                               | Funcional               | 1.4, 2.2, 6.1                        | Alta          |
+| 3.1.1      | Crear proyecto con nombre, horas estimadas y presupuesto                        | Funcional               | 1.5, 2.1, 3.1.1.1                    | Alta          | PMTool-001 |
+| 3.1.1.1    | Estado inicial del proyecto: PLANIFICADO                                        | Funcional               | 3.1.1                                 | Media         | PMTool-001 |
+| 3.1.2      | Establecer fechas planificadas y pasar a EN_CURSO                               | Funcional               | 1.4, 2.2, 6.1                        | Alta          | 
 | 3.1.3      | Estado del proyecto según estado de actividades                                 | Funcional               | 3.2.5                                 | Alta          |
 | 3.1.4      | Finalizar proyecto solo si todas las actividades completadas                    | Funcional               | 1.3, 2.6, 6.2                        | Alta          |
-| 3.2.1      | Crear actividades principales dentro de un proyecto                            | Funcional               | 2.3, 3.2.1.1, 3.2.6                   | Alta          |
-| 3.2.1.1    | Estado inicial de la actividad: PLANIFICADO                                     | Funcional               | 3.2.1                                 | Media         |
-| 3.2.2      | Creación de jerarquías en actividades                                           | Funcional               | 1.2, 2.3, 3.2.2.1, 3.2.2.2, 3.2.3    | Alta          |
-| 3.2.2.1    | Asignación automática de números EDT según jerarquía                            | Funcional               | 3.2.2, 6.5                           | Media         |
+| 3.2.1      | Crear actividades principales dentro de un proyecto                            | Funcional               | 2.3, 3.2.1.1, 3.2.6                   | Alta          | PMTool-002 |
+| 3.2.1.1    | Estado inicial de la actividad: PLANIFICADO                                     | Funcional               | 3.2.1                                 | Media         | PMTool-002 |
+| 3.2.2      | Creación de jerarquías en actividades                                           | Funcional               | 1.2, 2.3, 3.2.2.1, 3.2.2.2, 3.2.3    | Alta          | PMTool-002 |
+| 3.2.2.1    | Asignación automática de números EDT según jerarquía                            | Funcional               | 3.2.2, 6.5                           | Media         | 
 | 3.2.2.2    | Mostrar jerarquía completa con numeración EDT                                   | Funcional               | 2.4, 3.2.2, 5.2                      | Media         |
-| 3.2.3      | Crear subactividades dentro de actividades existentes                           | Funcional               | 3.2.2                                 | Alta          |
-| 3.2.4      | Establecer fechas planificadas para actividades                                 | Funcional               | 1.4, 6.1                             | Alta          |
-| 3.2.5      | Cambiar estado de actividades (PLANIFICADA, EN_EJECUCION, COMPLETADA)           | Funcional               | 2.5, 3.1.3, 3.2.5.1, 3.2.5.2         | Alta          |
-| 3.2.5.1    | Activar actividad (cambiar a EN_EJECUCION)                                      | Funcional               | 2.5, 3.2.5, 6.3                      | Alta          |
-| 3.2.5.2    | Desactivar actividad (cambiar a COMPLETADA)                                     | Funcional               | 2.5, 3.2.5, 6.4                      | Media         |
-| 3.2.5.3    | Visualizar historial de cambios de estado de actividades                        | Funcional               |                                       | Media         |
-| 3.2.6      | Asignar responsables a cada actividad                                           | Funcional               | 3.2.1                                 | Media         |
+| 3.2.3      | Crear subactividades dentro de actividades existentes                           | Funcional               | 3.2.2                                 | Alta          | PMTool-002 |
+| 3.2.4      | Establecer fechas planificadas para actividades                                 | Funcional               | 1.4, 6.1                             | Alta          | PMTool-002 |
+| 3.2.5      | Cambiar estado de actividades (PLANIFICADA, EN_EJECUCION, COMPLETADA)           | Funcional      | 2.5, 3.1.3, 3.2.5.1, 3.2.5.1.1, 3.2.5.2, 3.2.5.2.1 | Alta          | PMTool-003 |
+| 3.2.5.1    | Activar actividad (cambiar a EN_EJECUCION)                                      | Funcional      | 2.5, 3.2.5, 3.2.5.1.1, 6.3            | Alta          |
+| 3.2.5.1.1  | La fecha real de inicio se registrará automáticamente al activar una actividad | Funcional | 3.2.5, 3.2.5.1                       | Media         |
+| 3.2.5.2    | Desactivar actividad (cambiar a COMPLETADA)                                     | Funcional      | 2.5, 3.2.5, 3.2.5.2.1, 6.4            | Media         | PMTool-003 |
+| 3.2.5.2.1  | La fecha real de finalización se registrará automáticamente al completar una actividad | Funcional | 3.2.5, 3.2.5.2                       | Media         |
+| 3.2.5.3    | Visualizar historial de cambios de estado de actividades                        | Funcional      |                                       | Media         |
+| 3.2.6      | Asignar responsables a cada actividad                                           | Funcional               | 3.2.1                                 | Media         | PMTool-002 |
 | 3.2.7      | Registrar comentarios o notas en actividades                                   | Funcional               |                                       | Media         |
 | 3.2.8      | Establecer dependencias entre actividades                                       | Funcional               |                                       | Media         |
 | 3.2.9      | Reprogramar actividades según cambios en fechas                                 | Funcional               |                                       | Media         |
 | 4.1        | Sistema implementado en Java para portabilidad y robustez                       | No Funcional            |                                       | Media         |
-| 5.1        | Integración de gestión de portafolio y proyectos individuales                   | Sistema                 | 1.1                                   | Alta          |
+| 5.1        | Integración de gestión de portafolio y proyectos individuales                   | Sistema                 | 1.1                                   | Alta          | PMTool-001 |
 | 5.2        | Representación visual de la estructura EDT                                      | Sistema                 | 1.2, 2.4, 3.2.2.2                    | Media         |
 | 5.3        | Gestionar múltiples proyectos simultáneamente                                   | Sistema                 |                                       | Alta          |
-| 6.1        | Fecha de inicio no posterior a fecha de fin en proyectos y actividades         | Reglas de Negocio       | 3.1.2, 3.2.4                         | Alta          |
+| 6.1        | Fecha de inicio no posterior a fecha de fin en proyectos y actividades         | Reglas de Negocio       | 3.1.2, 3.2.4, 3.2.5.1.1, 3.2.5.2.1     | Alta          |
 | 6.2        | Finalizar proyecto solo si todas las actividades completadas                    | Reglas de Negocio       | 1.3, 2.6, 3.1.4                      | Alta          |
 | 6.3        | No activar actividad que ya está COMPLETADA                                     | Reglas de Negocio       | 3.2.5.1                              | Media         |
 | 6.4        | No desactivar actividad que no está EN_EJECUCION                                | Reglas de Negocio       | 3.2.5.2                              | Media         |
