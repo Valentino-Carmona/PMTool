@@ -7,38 +7,43 @@ import io.cucumber.java.en.And;
 
 public class ActivarActividadSteps {
     
-    @Given("existe una actividad en estado {string}")
-    public void existeUnaActividadEnEstado(String estado) {
+    @Given("existe una actividad planificada lista para iniciar")
+    public void existeUnaActividadPlanificadaListaParaIniciar() {
         // Implementación pendiente
     }
 
-    @When("el Gerente de Proyecto activa la actividad")
-    public void elGerenteDeProyectoActivaLaActividad() {
+    @When("el Gerente de Proyecto inicia la ejecución de la actividad")
+    public void elGerenteDeProyectoIniciaLaEjecucionDeLaActividad() {
         // Implementación pendiente
     }
 
-    @Then("el estado de la actividad cambia a {string}")
-    public void elEstadoDeLaActividadCambiaA(String estado) {
+    @Then("la actividad pasa a estar en ejecución")
+    public void laActividadPasaAEstarEnEjecucion() {
         // Implementación pendiente
     }
 
-    @And("se registra la fecha real de inicio")
-    public void seRegistraLaFechaRealDeInicio() {
+    @And("se registra la fecha de inicio real de la actividad")
+    public void seRegistraLaFechaDeInicioRealDeLaActividad() {
         // Implementación pendiente
     }
 
-    @When("el Gerente de Proyecto intenta activar la actividad")
-    public void elGerenteDeProyectoIntentaActivarLaActividad() {
+    @Given("existe una actividad que ya está completada")
+    public void existeUnaActividadQueYaEstaCompletada() {
         // Implementación pendiente
     }
 
-    @Then("se informa un mensaje indicando que no se puede activar una actividad completada")
-    public void seInformaUnMensajeIndicandoQueNoSePuedeActivarUnaActividadCompletada() {
+    @Then("se muestra un mensaje de error indicando que la actividad está completada")
+    public void seMuestraUnMensajeDeErrorIndicandoQueLaActividadEstaCompletada() {
         // Implementación pendiente
     }
 
-    @Then("se informa un mensaje indicando que la actividad ya está en ejecución")
-    public void seInformaUnMensajeIndicandoQueLaActividadYaEstaEnEjecucion() {
+    @Given("existe una actividad que ya está en ejecución")
+    public void existeUnaActividadQueYaEstaEnEjecucion() {
+        // Implementación pendiente
+    }
+
+    @Then("se muestra un mensaje de error indicando que la actividad ya está en ejecución")
+    public void seMuestraUnMensajeDeErrorIndicandoQueLaActividadYaEstaEnEjecucion() {
         // Implementación pendiente
     }
 }
