@@ -5,7 +5,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 
 public class ConsultarJerarquiaEdtSteps {
-    
+
     @Given("existe un proyecto con al menos una actividad y una subactividad")
     public void existeUnProyectoConAlMenosUnaActividadYUnaSubactividad() {
         // Implementación pendiente
