@@ -85,10 +85,11 @@
   2. El Recurso completa la actividad y notifica al Gerente de Proyecto.
   3. El Gerente de Proyecto registra la finalización y actualiza el estado.
 - **Diagrama**:
-    <!-- 
-    1. **Recurso** [reporta] **Finalización de Actividad** [a Gerente de Proyecto].
-    2. **Gerente de Proyecto** [registra] **Fecha Real de Finalización** [en Documento de Proyecto].
-    3. **Gerente de Proyecto** [actualiza] **Estado de Actividad** [a COMPLETADA en Documento de Proyecto]. 
+    <!--
+    1. **Recurso** [completa] **Actividad** 
+    2. **Recurso** [reporta] **Actividad** [a] **Gerente de Proyecto**
+    3. **Gerente de Proyecto** [registra] **Registro de Finalización** [en] **Actividad**.
+    4. **Gerente de Proyecto** [actualiza] **Estado** [a] **COMPLETADA** [aplica a] **Actividad**.
     -->
 
   ![PMTool-003 imagen de Historia de Dominio](./img/PMTool-003.png)
@@ -104,5 +105,4 @@
     - **Fecha Real de Finalización**: Fecha en que la actividad se completa (requisito 3.2.4).
     - **Estado**: PLANIFICADA, EN_EJECUCION, COMPLETADA (requisito 3.2.5).
   - **Notas**:
-    - El historial de cambios se registra manualmente (requisito 3.2.5.3).
     - El reporte de finalización refleja colaboración entre Gerente de Proyecto y Recurso (requisito 3.2.6).
