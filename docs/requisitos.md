@@ -52,11 +52,9 @@ La solución PMTool permite a los usuarios:
 3.2.5.1.1 La fecha real de inicio se registrará automáticamente al activar una actividad.  
 3.2.5.2 Será posible marcar una actividad como "COMPLETADA", lo que reflejará su finalización en el sistema.  
 3.2.5.2.1 La fecha real de finalización se registrará automáticamente al completar una actividad.
-3.2.5.3 Será posible visualizar el historial de cambios en el estado de cada actividad.
 3.2.6 Será posible asignar responsables a cada actividad.  
-3.2.7 Se podrán registrar comentarios o notas en cada actividad para facilitar el seguimiento.    
-3.2.8 Se podrán establecer dependencias entre actividades para reflejar relaciones de precedencia.  
-3.2.9 Será posible reprogramar actividades en función de cambios en las fechas planificadas.       
+3.2.7 Se podrán establecer dependencias entre actividades para reflejar relaciones de precedencia.  
+3.2.8 Será posible reprogramar actividades en función de cambios en las fechas planificadas.       
 
 ## 4. Requisitos No Funcionales
 
@@ -108,11 +106,9 @@ La solución PMTool permite a los usuarios:
 | 3.2.5.1.1  | La fecha real de inicio se registrará automáticamente al activar una actividad | Funcional | 3.2.5, 3.2.5.1                       | Media         | | US-07-activar-actividad.feature |
 | 3.2.5.2    | Desactivar actividad (cambiar a COMPLETADA)                                     | Funcional      | 2.5, 3.2.5, 3.2.5.2.1, 6.4            | Media         | PMTool-003 |
 | 3.2.5.2.1  | La fecha real de finalización se registrará automáticamente al completar una actividad | Funcional | 3.2.5, 3.2.5.2                       | Media         |
-| 3.2.5.3    | Visualizar historial de cambios de estado de actividades                        | Funcional      |                                       | Media         |
 | 3.2.6      | Asignar responsables a cada actividad                                           | Funcional               | 3.2.1                                 | Media         | PMTool-002 |
-| 3.2.7      | Registrar comentarios o notas en actividades                                   | Funcional               |                                       | Media         |
-| 3.2.8      | Establecer dependencias entre actividades                                       | Funcional               |                                       | Media         | | US-09-consultar-jerarquia-edt.feature |
-| 3.2.9      | Reprogramar actividades según cambios en fechas                                 | Funcional               |                                       | Media         |
+| 3.2.7      | Establecer dependencias entre actividades                                       | Funcional               |                                       | Media         | | US-09-consultar-jerarquia-edt.feature |
+| 3.2.8      | Reprogramar actividades según cambios en fechas                                 | Funcional               |                                       | Media         |
 | 4.1        | Sistema implementado en Java para portabilidad y robustez                       | No Funcional            |                                       | Media         |
 | 5.1        | Integración de gestión de portafolio y proyectos individuales                   | Sistema                 | 1.1                                   | Alta          | PMTool-001 |
 | 5.2        | Representación visual de la estructura EDT                                      | Sistema                 | 1.2, 2.4, 3.2.2.2                    | Media         | | US-09-consultar-jerarquia-edt.feature |
