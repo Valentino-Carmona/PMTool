@@ -1,3 +1,4 @@
+# Issue: 6
 Feature: Cambio de estado del proyecto
   # Como Gerente de Proyecto
   # Quiero cambiar el estado del proyecto según su progreso
