@@ -38,6 +38,7 @@ La solución PMTool permite a los usuarios:
 3.1.2 Se podrán establecer fechas planificadas de inicio y fin para proyectos, lo que hara que automaticamente pase al estado "EN_CURSO".  
 3.1.3 El estado del proyecto se actualizará automáticamente según el estado de sus actividades.  
 3.1.4 Un proyecto solo podrá estar como "FINALIZADO" cuando todas sus actividades estén con el estado "COMPLETADA".  
+3.1.5 No se podrán crear proyectos con nombres duplicados.  
 
 3.2 **Gestión de Actividades**
 3.2.1 Será posible crear actividades principales con un nombre y horas estimadas dentro de un proyecto.  
@@ -55,6 +56,9 @@ La solución PMTool permite a los usuarios:
 3.2.6 Será posible asignar responsables a cada actividad.  
 3.2.7 Se podrán establecer dependencias entre actividades para reflejar relaciones de precedencia.  
 3.2.8 Será posible reprogramar actividades en función de cambios en las fechas planificadas.       
+3.2.9 Será posible definir dependencias entre actividades con tipos específicos (Fin-a-Comienzo, Comienzo-a-Comienzo, etc.) y retrasos o adelantos.  
+3.2.9.1 La fecha de inicio de la actividad dependiente se actualizará automáticamente según la dependencia definida.  
+3.2.10 Será posible mostrar atributos específicos al consultar la jerarquía EDT.
 
 ## 4. Requisitos No Funcionales
 
@@ -94,6 +98,7 @@ La solución PMTool permite a los usuarios:
 | 3.1.2      | Establecer fechas planificadas y pasar a EN_CURSO                               | Funcional               | 1.4, 2.2, 6.1                        | Alta          | 
 | 3.1.3      | Estado del proyecto según estado de actividades                                 | Funcional               | 3.2.5                                 | Alta          |
 | 3.1.4      | Finalizar proyecto solo si todas las actividades completadas                    | Funcional               | 1.3, 2.6, 6.2                        | Alta          |
+| 3.1.5      | No se podrán crear proyectos con nombres duplicados                             | Funcional               | 3.1.1                                 | Alta          | PMTool-001               | US-03-crear-proyecto.feature |
 | 3.2.1      | Crear actividades principales dentro de un proyecto                            | Funcional               | 2.3, 3.2.1.1, 3.2.6                   | Alta          | PMTool-002 |
 | 3.2.1.1    | Estado inicial de la actividad: PLANIFICADO                                     | Funcional               | 3.2.1                                 | Media         | PMTool-002 |
 | 3.2.2      | Creación de jerarquías en actividades                                           | Funcional               | 1.2, 2.3, 3.2.2.1, 3.2.2.2, 3.2.3    | Alta          | PMTool-002 |
@@ -109,6 +114,7 @@ La solución PMTool permite a los usuarios:
 | 3.2.6      | Asignar responsables a cada actividad                                           | Funcional               | 3.2.1                                 | Media         | PMTool-002 |
 | 3.2.7      | Establecer dependencias entre actividades                                       | Funcional               |                                       | Media         | | US-09-consultar-jerarquia-edt.feature |
 | 3.2.8      | Reprogramar actividades según cambios en fechas                                 | Funcional               |                                       | Media         |
+| 3.2.9      | Definir dependencias entre actividades con tipos específicos y retrasos/adelantos | Funcional               | 3.2.4, 6.1                           | Alta          | PMTool-002               | US-10-gestionar-dependencias.feature |
 | 4.1        | Sistema implementado en Java para portabilidad y robustez                       | No Funcional            |                                       | Media         |
 | 5.1        | Integración de gestión de portafolio y proyectos individuales                   | Sistema                 | 1.1                                   | Alta          | PMTool-001 |
 | 5.2        | Representación visual de la estructura EDT                                      | Sistema                 | 1.2, 2.4, 3.2.2.2                    | Media         | | US-09-consultar-jerarquia-edt.feature |

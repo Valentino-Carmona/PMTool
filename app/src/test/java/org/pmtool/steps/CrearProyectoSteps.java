@@ -25,7 +25,7 @@ public class CrearProyectoSteps {
         proyecto = gerentePortafolio.crearProyecto("Proyecto Test", 100, 50000.0);
     }
     
-    @Then("se crea un nuevo proyecto con un código único, un nombre, el total de horas estimadas, el presupuesto " +
+    @Then("se crea un nuevo proyecto con un nombre, el total de horas estimadas, el presupuesto " +
             "y en estado {string}")
     public void seCreaUnNuevoProyectoConCodigoUnico(String estado) {
         assertNotNull(proyecto);
@@ -35,4 +35,24 @@ public class CrearProyectoSteps {
         assertTrue(proyecto.getTotalHorasEstimadas() > 0);
         assertTrue(proyecto.getPresupuesto() > 0);
     }
-} 
+    
+    @Given("ya existe un proyecto con el nombre {string}")
+    public void yaExisteUnProyectoConElNombre(String nombreProyecto) {
+        gerentePortafolio.crearProyecto(nombreProyecto, 100, 50000.0);
+    }
+    
+    @When("el Gerente de Portafolio solicita agregar un nuevo proyecto con el nombre {string}")
+    public void elGerenteDePortafolioSolicitaAgregarUnNuevoProyectoConElNombre(String nombreProyecto) {
+        proyecto = gerentePortafolio.crearProyecto(nombreProyecto, 100, 50000.0);
+    }
+    
+    @Then("se muestra un mensaje de error indicando que el nombre del proyecto ya existe")
+    public void seMuestraUnMensajeDeErrorIndicandoQueElNombreDelProyectoYaExiste() {
+        // Aquí se debe implementar la validación del mensaje de error
+    }
+    
+    @Then("no se registra el proyecto en el portafolio")
+    public void noSeRegistraElProyectoEnElPortafolio() {
+        // Aquí se debe implementar la validación de que el proyecto no fue registrado
+    }
+}
