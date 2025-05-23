@@ -22,8 +22,8 @@ public class ActivarActividadSteps {
         // Implementación pendiente
     }
 
-    @And("se registra la fecha de inicio real de la actividad")
-    public void seRegistraLaFechaDeInicioRealDeLaActividad() {
+    @And("se registra la fecha de inicio real de la actividad automaticamente")
+    public void seRegistraLaFechaDeInicioRealDeLaActividadAutomaticamente() {
         // Implementación pendiente
     }
 

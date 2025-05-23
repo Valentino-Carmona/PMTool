@@ -12,13 +12,18 @@ public class FinalizarActividadSteps {
         // Implementación pendiente
     }
     
-    @When("el Gerente de Proyecto informa una fecha real de finalización")
+    @When("el Gerente de Proyecto informa la finalización de la actividad")
     public void elGerenteDeProyectoInformaUnaFechaRealDeFinalizacion() {
         // Implementación pendiente
     }
     
     @Then("el estado de la actividad cambia a {string}")
     public void elEstadoDeLaActividadCambiaA(String estado) {
+        // Implementación pendiente
+    }
+
+    @And("la fecha real de finalización se actualizo automaticamente")
+    public void laFechaRealDeFinalizacionSeActualizoAutomaticamente() {
         // Implementación pendiente
     }
     
