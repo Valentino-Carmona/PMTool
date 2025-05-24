@@ -57,11 +57,11 @@ La solución PMTool permite a los usuarios:
 3.2.6 Será posible asignar responsables a cada actividad.  
 3.2.7 Será posible establecer dependencias entre actividades con tipos específicos y retrasos/adelantos.  
 3.2.7.1 La fecha de inicio de la actividad dependiente se actualizará automáticamente según la dependencia definida.
-3.2.7.2 Será posible establecer dependencias entre actividades con tipo Finish to Start 
-3.2.7.3 Será posible establecer dependencias entre actividades con tipo Start to Start
-3.2.7.4 Será posible establecer dependencias entre actividades con tipo Start to Finish 
-3.2.7.5 Será posible establecer dependencias entre actividades con tipo Finish to Finish
-3.2.7.6 Será posible establecer, en una misma dependencia, un tiempo de espera entre una actividad y otra 
+3.2.7.2 Será posible establecer dependencias entre actividades con tipo Finish to Start.
+3.2.7.3 Será posible establecer dependencias entre actividades con tipo Start to Start.
+3.2.7.4 Será posible establecer dependencias entre actividades con tipo Start to Finish. 
+3.2.7.5 Será posible establecer dependencias entre actividades con tipo Finish to Finish.
+3.2.7.6 Será posible establecer, en una misma dependencia, un tiempo de espera entre una actividad y otra.
 3.2.7.7 Será posible establecer, en una misma dependencia, que una actividad comience antes de que la anterior termine completamente.
 3.2.8 No se podrán agregar actividades a proyectos en estado "FINALIZADO".  
 3.2.9 No se podrán crear actividades o subactividades sin un nombre válido.  
