@@ -21,6 +21,11 @@ public class ConsultarJerarquiaEdtSteps {
         // Implementación pendiente
     }
 
+    @Then("cada actividad incluye los atributos: número EDT, nombre, estado, fechas planificadas, fechas reales, y horas estimadas")
+    public void cadaActividadIncluyeLosAtributosNumeroEdtNombreEstadoFechasPlanificadasFechasRealesYHorasEstimadas() {
+        // Implementación pendiente
+    }
+
     @Given("existe un proyecto sin actividades")
     public void existeUnProyectoSinActividades() {
         // Implementación pendiente

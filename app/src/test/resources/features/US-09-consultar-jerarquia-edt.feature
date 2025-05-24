@@ -8,6 +8,7 @@ Feature: Consultar la jerarquía EDT de un proyecto
     Given existe un proyecto con al menos una actividad y una subactividad
     When el Gerente de Proyecto solicita la jerarquía EDT del proyecto
     Then se muestra la estructura jerárquica con las actividades y sus subactividades
+    And cada actividad incluye los atributos: número EDT, nombre, estado, fechas planificadas, fechas reales, y horas estimadas
 
   Scenario: Consultar la jerarquía EDT de un proyecto sin actividades
     Given existe un proyecto sin actividades

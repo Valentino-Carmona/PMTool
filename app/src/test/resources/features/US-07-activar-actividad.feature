@@ -8,7 +8,7 @@ Feature: Activar actividad planificada
     Given existe una actividad planificada lista para iniciar
     When el Gerente de Proyecto inicia la ejecución de la actividad
     Then la actividad pasa a estar en ejecución
-    And se registra la fecha de inicio real de la actividad
+    And se registra la fecha de inicio real de la actividad automaticamente
 
   Scenario: Intentar activar una actividad ya completada
     Given existe una actividad que ya está completada
