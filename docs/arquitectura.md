@@ -1,6 +1,6 @@
 # Arquitectura del Sistema PMTool (Modelo C4)
 
-Este documento describe la arquitectura de PMTool usando el modelo C4. A continuación se presentan los diagramas de contexto y contenedores, alineados con los artefactos `requisitos.md`, `mdd.md`, `ddd.md` e `interesados.md`.
+Este documento describe la arquitectura de PMTool usando el modelo C4. A continuación se presentan los diagramas de contexto y contenedores.
 
 ---
 
@@ -10,7 +10,7 @@ Este documento describe la arquitectura de PMTool usando el modelo C4. A continu
 
 ```plantuml
 @startuml
-<!-- !includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml -->
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
 ' Personas
 Person(Org, "Organización", "Define metas y asigna presupuesto.")
@@ -49,7 +49,7 @@ Soporte --> PMTool : Da soporte técnico
 
 ```plantuml
 @startuml
-<!-- !includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml -->
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 Person(GPf, "Gerente de Portafolio")
 Person(GPr, "Gerente de Proyecto")
