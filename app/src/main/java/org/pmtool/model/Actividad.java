@@ -63,13 +63,19 @@ public class Actividad {
     }
 
     public void setDependencia(Dependencia dependencia) {
-        if (dependencia != null && dependencia.getPredecesora() == this) {
+        if (EstadoActividad.COMPLETADA.equals(estado)) {
+            throw new IllegalStateException("No se puede definir una dependencia para una actividad completada.");
+
+        } else if (dependencia != null && dependencia.getPredecesora() == this) {
             throw new IllegalArgumentException("Una actividad no puede ser su propia predecesora");
         }
         this.dependencia = dependencia;
     }
 
     public void agregarSubactividad(Actividad subactividad) {
+        if (EstadoActividad.COMPLETADA.equals(estado)) {
+            throw new IllegalStateException("No se pueden agregar subactividades a una actividad completada");
+        }
         Objects.requireNonNull(subactividad, "La subactividad no puede ser nula");
         int subNivel = subactividades.size() + 1;
         subactividad.setNumeroEDT(this.numeroEDT + "." + subNivel);
@@ -79,8 +85,11 @@ public class Actividad {
     public void activar() {
         if (EstadoActividad.COMPLETADA.equals(estado)) {
             throw new IllegalStateException("No se puede activar una actividad ya completada.");
-        }
-        if (dependencia != null) {
+            
+        } else if (EstadoActividad.EN_EJECUCION.equals(estado)) {
+            throw new IllegalStateException("La actividad ya está en ejecución.");
+            
+        } else if (dependencia != null) {
             dependencia.verificarActivacion(this);
         }
         this.estado = EstadoActividad.EN_EJECUCION;
@@ -88,19 +97,17 @@ public class Actividad {
     }
 
     public void desactivar() {
-        if (EstadoActividad.PLANIFICADA.equals(estado)) {
+        if (EstadoActividad.PLANIFICADA.equals(this.estado)) {
             throw new IllegalStateException("No se puede desactivar una actividad que no está en ejecución.");
+
+        } else if (EstadoActividad.COMPLETADA.equals(this.estado)) {
+            throw new IllegalStateException("No se puede desactivar una actividad ya completada.");
+
+        } else if (!subactividades.isEmpty() && !subactividades.stream().allMatch(Actividad::isCompletada)) {
+            throw new IllegalStateException("No se puede desactivar una actividad hasta que todas sus subactividades estén completadas.");
         }
-        if (!subactividades.isEmpty() && !subactividades.stream().allMatch(Actividad::isCompletada)) {
-                throw new IllegalStateException("No se puede desactivar una actividad hasta que todas sus subactividades estén completadas.");
-            }
-        
-        if (fechaFinReal == null) {
-            this.estado = EstadoActividad.COMPLETADA;
-            this.fechaFinReal = LocalDate.now();
-        } else {
-            this.estado = EstadoActividad.COMPLETADA; // Solo cambia estado si ya tiene fechaFinReal
-        }
+        this.fechaFinReal = LocalDate.now();
+        this.estado = EstadoActividad.COMPLETADA;
     }
 
     public String getNumeroEDT() {
@@ -153,6 +160,18 @@ public class Actividad {
 
     public void setFechaFinReal(LocalDate fechaFinReal) {
         this.fechaFinReal = fechaFinReal;
+    }
+
+    public int getDuracionDias() {
+        return duracionDias;
+    }
+
+    public EstadoActividad getEstado() {
+        return estado;
+    }
+
+    public Dependencia getDependencia() {
+        return dependencia;
     }
 
     public boolean isCompletada() {

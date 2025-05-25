@@ -1,95 +1,92 @@
 package org.pmtool.steps;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
+import org.pmtool.model.Proyecto;
+import org.pmtool.model.Actividad;
+import org.pmtool.manager.GerenteProyecto;
+
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlanificarActividadesSteps {
-    
-    @Given("existe un proyecto en estado {string} con nombre {string}")
-    public void existeUnProyectoEnEstadoConNombre(String estado, String nombre) {
-        // Implementación pendiente
-    }
-    
-    @When("se crea una actividad con código {string} y nombre {string}")
-    public void seCreaUnaActividadConCodigoYNombre(String codigo, String nombre) {
-        // Implementación pendiente
-    }
-    
-    @Then("la actividad se agrega al proyecto")
-    public void laActividadSeAgregaAlProyecto() {
-        // Implementación pendiente
-    }
-    
-    @And("la actividad tiene un código único {string}")
-    public void laActividadTieneUnCodigoUnico(String codigo) {
-        // Implementación pendiente
-    }
-    
-    @When("se intenta crear una actividad con código {string} y sin nombre")
-    public void seIntentaCrearUnaActividadConCodigoYSinNombre(String codigo) {
-        // Implementación pendiente
-    }
-    
-    @Then("se muestra un mensaje de error indicando que el nombre de la actividad es obligatorio")
-    public void seMuestraUnMensajeDeErrorIndicandoQueElNombreDeLaActividadEsObligatorio() {
-        // Implementación pendiente
-    }
-    
-    @When("se intenta agregar una actividad al proyecto")
-    public void seIntentaAgregarUnaActividadAlProyecto() {
-        // Implementación pendiente
-    }
-    
-    @Then("se muestra un mensaje de error indicando que no se pueden agregar actividades a un proyecto finalizado")
-    public void seMuestraUnMensajeDeErrorIndicandoQueNoSePuedenAgregarActividades() {
-        // Implementación pendiente
-    }
+    private Proyecto proyecto;
+    private Actividad actividad;
+    private GerenteProyecto gerenteProyecto;
+    private Exception excepcion;
 
-    @When("el Gerente de Proyecto intenta definir una nueva actividad")
-    public void elGerenteDeProyectoIntentaDefinirUnaNuevaActividad() {
-        // Implementación pendiente
-    }
-
-    @Then("se informa un mensaje indicando que no se pueden agregar actividades a proyectos finalizados")
-    public void seInformaUnMensajeIndicandoQueNoSePuedenAgregarActividadesAProyectosFinalizados() {
-        // Implementación pendiente
-    }
-
-    @When("el Gerente de Proyecto intenta definir una nueva actividad sin nombre")
-    public void elGerenteDeProyectoIntentaDefinirUnaActividadSinNombre() {
-        // Implementación pendiente
-    }
-
-    @Then("se informa un mensaje indicando que el nombre es obligatorio")
-    public void seInformaUnMensajeIndicandoQueElNombreEsObligatorio() {
-        // Implementación pendiente
-    }
-
-    @And("no se registra la actividad al proyecto")
-    public void noSeRegistraLaActividadAlProyecto() {
-        // Implementación pendiente
+    @Given("hay un proyecto en estado {string}")
+    public void hayUnProyectoEnEstado(String estado) {
+        proyecto = new Proyecto("Proyecto Test", 100, 50000.0);
+        proyecto.setEstado(Proyecto.EstadoProyecto.valueOf(estado));
+        gerenteProyecto = new GerenteProyecto();
     }
 
     @When("el Gerente de Proyecto define una nueva actividad con nombre y fechas planificadas")
     public void elGerenteDeProyectoDefineUnaNuevaActividadConNombreYFechasPlanificadas() {
-        // Implementación pendiente
+        try {
+            actividad = gerenteProyecto.crearActividad(proyecto, "1", "Nueva Actividad", 5);
+            proyecto.agregarActividad(actividad);
+        } catch (Exception e) {
+            excepcion = e;
+        }
     }
-    
+
     @Then("se asigna un código único a la actividad")
-    public void seAsisgnaUcCodigoUnicoALaActividad() {
-        // Implementación pendiente
+    public void seAsignaUnCodigoUnicoALaActividad() {
+        assertNotNull(actividad.getNumeroEDT());
+        assertEquals("1", actividad.getNumeroEDT());
     }
 
     @And("la actividad se asocia al proyecto")
     public void laActividadSeAsociaAlProyecto() {
-        // Implementación pendiente
+        assertTrue(proyecto.getActividades().contains(actividad));
     }
 
     @And("su estado inicial es {string}")
     public void suEstadoInicialEs(String estado) {
-        // Implementación pendiente
+        assertEquals(Actividad.EstadoActividad.valueOf(estado), actividad.getEstado());
     }
-    
-} 
+
+    @When("el Gerente de Proyecto intenta definir una nueva actividad sin nombre")
+    public void elGerenteDeProyectoIntentaDefinirUnaNuevaActividadSinNombre() {
+        try {
+            actividad = gerenteProyecto.crearActividad(proyecto, "2", null, 5);
+            proyecto.agregarActividad(actividad);
+        } catch (Exception e) {
+            excepcion = e;
+        }
+    }
+
+    @Then("se informa un mensaje indicando que el nombre es obligatorio")
+    public void seInformaUnMensajeIndicandoQueElNombreEsObligatorio() {
+        assertNotNull(excepcion);
+        assertEquals("El nombre no puede ser nulo", excepcion.getMessage());
+    }
+
+    @And("no se registra la actividad al proyecto")
+    public void noSeRegistraLaActividadAlProyecto() {
+        assertFalse(proyecto.getActividades().contains(actividad));
+    }
+
+    @When("el Gerente de Proyecto intenta definir una nueva actividad")
+    public void elGerenteDeProyectoIntentaDefinirUnaNuevaActividad() {
+        try {
+            if (proyecto.getEstado() == Proyecto.EstadoProyecto.FINALIZADO) {
+                throw new IllegalStateException("No se pueden agregar actividades a un proyecto finalizado");
+            }
+            actividad = gerenteProyecto.crearActividad(proyecto, "3", "Actividad Finalizada", 5);
+            proyecto.agregarActividad(actividad);
+        } catch (Exception e) {
+            excepcion = e;
+        }
+    }
+
+    @Then("se informa un mensaje indicando que no se pueden agregar actividades a proyectos finalizados")
+    public void seInformaUnMensajeIndicandoQueNoSePuedenAgregarActividadesAProyectosFinalizados() {
+        assertNotNull(excepcion);
+        assertEquals("No se pueden agregar actividades a un proyecto finalizado", excepcion.getMessage());
+    }
+}

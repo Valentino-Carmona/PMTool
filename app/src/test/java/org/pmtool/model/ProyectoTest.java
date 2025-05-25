@@ -23,20 +23,6 @@ public class ProyectoTest {
     }
 
     @Test
-    void testPlanificarFechas() {
-        LocalDate inicio = LocalDate.of(2024, 1, 1);
-        LocalDate fin = LocalDate.of(2024, 12, 31);
-        
-        proyecto.planificarFechas(inicio, fin);
-        // La planificación no debería lanzar excepción
-        
-        // Verificar que lanza excepción cuando las fechas están invertidas
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            proyecto.planificarFechas(fin, inicio);
-        });
-    }
-
-    @Test
     void testAgregarActividad() {
         Actividad actividad = new Actividad("1.1", "Actividad Test", 40);
         proyecto.agregarActividad(actividad);
@@ -60,13 +46,14 @@ public class ProyectoTest {
     void testFinalizarProyecto() {
         Actividad actividad = new Actividad("1.1", "Actividad Test", 40);
         proyecto.agregarActividad(actividad);
+        proyecto.planificarProyecto(LocalDate.now());
         
         // Activar y desactivar la actividad
         actividad.activar();
         actividad.desactivar();
         
         // Finalizar el proyecto
-        proyecto.finalizar(LocalDate.now());
+        proyecto.finalizar();
         
         Assertions.assertEquals(Proyecto.EstadoProyecto.FINALIZADO, proyecto.getEstado());
     }
@@ -75,10 +62,11 @@ public class ProyectoTest {
     void testFinalizarProyectoConActividadIncompleta() {
         Actividad actividad = new Actividad("1.1", "Actividad Test", 40);
         proyecto.agregarActividad(actividad);
+        proyecto.planificarProyecto(LocalDate.now());
         
         // Intentar finalizar el proyecto sin completar la actividad
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            proyecto.finalizar(LocalDate.now());
+            proyecto.finalizar();
         });
     }
 } 

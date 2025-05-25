@@ -3,6 +3,7 @@ package org.pmtool.model;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Assertions;
+
 import java.time.LocalDate;
 
 public class ActividadTest {
@@ -18,29 +19,19 @@ public class ActividadTest {
         Assertions.assertNotNull(actividad);
         Assertions.assertEquals("1.1", actividad.getNumeroEDT());
         Assertions.assertEquals("Actividad Test", actividad.getNombre());
-        Assertions.assertEquals(40, actividad.getTotalHorasEstimadas());
+        Assertions.assertEquals(40, actividad.getDuracionDias());
         Assertions.assertTrue(actividad.isPlanificada());
     }
 
     @Test
     void testPlanificarFechas() {
         LocalDate inicio = LocalDate.of(2024, 1, 1);
-        LocalDate fin = LocalDate.of(2024, 12, 31);
+        LocalDate fin = LocalDate.of(2024, 2, 10);
         
-        actividad.planificarFechas(inicio, fin);
+        actividad.calcularFechasPlanificadas(inicio);
         
         Assertions.assertEquals(inicio, actividad.getFechaInicioPlanificada());
         Assertions.assertEquals(fin, actividad.getFechaFinPlanificada());
-    }
-
-    @Test
-    void testPlanificarFechasInvertidas() {
-        LocalDate inicio = LocalDate.of(2024, 12, 31);
-        LocalDate fin = LocalDate.of(2024, 1, 1);
-        
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            actividad.planificarFechas(inicio, fin);
-        });
     }
 
     @Test

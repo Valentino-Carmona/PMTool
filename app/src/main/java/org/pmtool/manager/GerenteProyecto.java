@@ -12,11 +12,11 @@ public class GerenteProyecto {
         proyecto.planificarProyecto(inicio);
     }
 
-    public void finalizarProyecto(Proyecto proyecto, LocalDate fechaFinReal) {
-        proyecto.finalizar(fechaFinReal);
+    public void finalizarProyecto(Proyecto proyecto) {
+        proyecto.finalizar();
     }
 
-    public Actividad crearActividad(Proyecto proyecto, String numeroPadre, String nombre, int horas) {
+    public Actividad crearActividad(Proyecto proyecto, String numeroPadre, String nombre, int duracionDias) {
         String numeroEDT;
         int size = proyecto.getActividades().size();
         if (size == 0) {
@@ -25,7 +25,7 @@ public class GerenteProyecto {
         else {
             numeroEDT = numeroPadre + "." + (size + 1);
         }
-        return new Actividad(numeroEDT, nombre, horas);
+        return new Actividad(numeroEDT, nombre, duracionDias);
     }
 
     public void configurarDependencia(Actividad actividad, Actividad predecesora, String tipo, int leadLag) {

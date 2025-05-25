@@ -35,7 +35,7 @@ La solución PMTool permite a los usuarios:
 3.1 **Gestión de Proyectos**
 3.1.1 Será posible crear un proyecto con nombre, horas estimadas y presupuesto.  
 3.1.1.1 Cuando se crea un proyecto, el estado inicial de este será "PLANIFICADO".  
-3.1.2 Se podrán establecer fechas planificadas de inicio y fin para proyectos, lo que hará que automáticamente pase al estado "EN_CURSO".  
+3.1.2 Se podrán establecer fechas planificadas de inicio para proyectos, lo que hará que automáticamente pase al estado "EN_CURSO".  
 3.1.3 El estado del proyecto se actualizará automáticamente según el estado de sus actividades.  
 3.1.4 Un proyecto solo podrá estar como "FINALIZADO" cuando todas sus actividades estén con el estado "COMPLETADA".  
 3.1.5 No se podrán crear proyectos con nombres duplicados.  
