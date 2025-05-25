@@ -13,4 +13,8 @@ public class GerentePortafolio {
         proyectos.add(proyecto);
         return proyecto;
     }
+
+    public List<Proyecto> getProyectos() {
+        return proyectos;
+    }
 }

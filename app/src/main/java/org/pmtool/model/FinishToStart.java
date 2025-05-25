@@ -13,17 +13,12 @@ public class FinishToStart implements Dependencia {
     }
 
     @Override
-    public LocalDate calcularInicioDependiente(LocalDate inicioPredecesora, LocalDate finPredecesora, int duracionDias) {
+    public LocalDate calcularInicioDependiente(int duracionDias) {
+        LocalDate finPredecesora = this.predecesora.getFechaFinPlanificada();
         if (finPredecesora == null) {
             throw new IllegalStateException("La predecesora debe tener una fecha de fin planificada");
         }
         return finPredecesora.plusDays(1).plusDays(leadLag);
-    }
-
-    @Override
-    public LocalDate calcularFinDependiente(LocalDate inicioPredecesora, LocalDate finPredecesora, int duracionDias) {
-        LocalDate inicio = calcularInicioDependiente(inicioPredecesora, finPredecesora, duracionDias);
-        return inicio.plusDays(duracionDias);
     }
 
     @Override

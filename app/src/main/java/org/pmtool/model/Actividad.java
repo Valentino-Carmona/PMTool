@@ -26,9 +26,6 @@ public class Actividad {
     public Actividad(String numeroEDT, String nombre, int duracionDias) {
         this.numeroEDT = Objects.requireNonNull(numeroEDT, "El número EDT no puede ser nulo");
         this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
-        if (duracionDias <= 0) {
-            throw new IllegalArgumentException("La duración debe ser mayor a 0 días");
-        }
         this.duracionDias = duracionDias;
         this.estado = EstadoActividad.PLANIFICADA;
         this.subactividades = new ArrayList<>();
@@ -55,20 +52,13 @@ public class Actividad {
                     .orElseThrow(() -> new IllegalStateException("No se encontraron fechas de fin en subactividades"));
         } else {
             LocalDate inicio;
-            LocalDate fin;
             if (dependencia != null) {
-                Actividad pre = dependencia.getPredecesora();
-                if (pre.getFechaInicioPlanificada() == null || pre.getFechaFinPlanificada() == null) {
-                    throw new IllegalStateException("La predecesora debe tener fechas planificadas definidas");
-                }
-                inicio = dependencia.calcularInicioDependiente(pre.getFechaInicioPlanificada(), pre.getFechaFinPlanificada(), duracionDias);
-                fin = dependencia.calcularFinDependiente(pre.getFechaInicioPlanificada(), pre.getFechaFinPlanificada(), duracionDias);
+                inicio = dependencia.calcularInicioDependiente(duracionDias);
             } else {
                 inicio = fechaInicioProyecto;
-                fin = inicio.plusDays(duracionDias);
             }
             this.fechaInicioPlanificada = inicio;
-            this.fechaFinPlanificada = fin;
+            this.fechaFinPlanificada = inicio.plusDays(duracionDias);
         }
     }
 
@@ -179,10 +169,15 @@ public class Actividad {
 
     @Override
     public String toString() {
-        return "Actividad{" +
-                "numeroEDT='" + numeroEDT + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", estado='" + estado + '\'' +
-                '}';
+        return "\nActividad {\n" +
+                "  numeroEDT = " + numeroEDT + '\n' +
+                "  nombre = " + nombre + '\n' +
+                "  estado = " + estado + '\n' +
+                "  duracionDias = " + duracionDias + '\n' +
+                "  fechaInicioPlanificada = " + fechaInicioPlanificada + '\n' +
+                "  fechaFinPlanificada = " + fechaFinPlanificada + '\n' +
+                "  dependencia = " + (dependencia != null ? dependencia.getPredecesora().getNumeroEDT() : "N/A") + '\n' +
+                "  leadLag = " + (dependencia != null ? dependencia.getLeadLag() : "N/A") +
+                "\n}";
     }
 } 
