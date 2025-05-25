@@ -9,7 +9,7 @@ public class Actividad {
     private String numeroEDT;
     private String nombre;
     private int duracionDias;
-    private Dependencia dependencia;
+    private IDependencia dependencia;
     private LocalDate fechaInicioPlanificada;
     private LocalDate fechaFinPlanificada;
     private LocalDate fechaInicioReal;
@@ -52,17 +52,20 @@ public class Actividad {
                     .orElseThrow(() -> new IllegalStateException("No se encontraron fechas de fin en subactividades"));
         } else {
             LocalDate inicio;
+            LocalDate fin;
             if (dependencia != null) {
                 inicio = dependencia.calcularInicioDependiente(duracionDias);
+                fin = dependencia.calcularFinDependiente(duracionDias);
             } else {
                 inicio = fechaInicioProyecto;
+                fin = inicio.plusDays(duracionDias);
             }
             this.fechaInicioPlanificada = inicio;
-            this.fechaFinPlanificada = inicio.plusDays(duracionDias);
+            this.fechaFinPlanificada = fin;
         }
     }
 
-    public void setDependencia(Dependencia dependencia) {
+    public void setDependencia(IDependencia dependencia) {
         if (EstadoActividad.COMPLETADA.equals(estado)) {
             throw new IllegalStateException("No se puede definir una dependencia para una actividad completada.");
 
@@ -108,6 +111,20 @@ public class Actividad {
         }
         this.fechaFinReal = LocalDate.now();
         this.estado = EstadoActividad.COMPLETADA;
+    }
+
+    public LocalDate calcularFechaDependienteInicio(int duracionDias) {
+        if (this.fechaInicioPlanificada == null) {
+            throw new IllegalStateException("La actividad no tiene una fecha de inicio planificada.");
+        }
+        return this.fechaInicioPlanificada.plusDays(duracionDias);
+    }
+
+    public LocalDate calcularFechaDependienteFin(int duracionDias) {
+        if (this.fechaFinPlanificada == null) {
+            throw new IllegalStateException("La actividad no tiene una fecha de fin planificada.");
+        }
+        return this.fechaFinPlanificada.plusDays(duracionDias);
     }
 
     public String getNumeroEDT() {
@@ -170,7 +187,7 @@ public class Actividad {
         return estado;
     }
 
-    public Dependencia getDependencia() {
+    public IDependencia getDependencia() {
         return dependencia;
     }
 

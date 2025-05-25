@@ -3,7 +3,7 @@ package org.pmtool.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class FinishToStart implements Dependencia {
+public class FinishToStart implements IDependencia {
     private final Actividad predecesora;
     private final int leadLag;
 
@@ -14,11 +14,13 @@ public class FinishToStart implements Dependencia {
 
     @Override
     public LocalDate calcularInicioDependiente(int duracionDias) {
-        LocalDate finPredecesora = this.predecesora.getFechaFinPlanificada();
-        if (finPredecesora == null) {
-            throw new IllegalStateException("La predecesora debe tener una fecha de fin planificada");
-        }
-        return finPredecesora.plusDays(1).plusDays(leadLag);
+        return this.predecesora.calcularFechaDependienteFin(1 + leadLag);
+    }
+
+    @Override
+    public LocalDate calcularFinDependiente(int duracionDias) {
+        LocalDate inicioDependiente = calcularInicioDependiente(duracionDias);
+        return inicioDependiente.plusDays(duracionDias);
     }
 
     @Override
