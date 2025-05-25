@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Proyecto {
-    private static int contadorProyectos = 1; // Autonumeración de proyectos
+    private static int contadorProyectos = 1;
     private int numero;
     private String nombre;
     private LocalDate fechaInicioPlanificada;
@@ -32,27 +32,34 @@ public class Proyecto {
         this.actividades = new ArrayList<>();
     }
 
-    public void planificarFechas(LocalDate inicio, LocalDate fin) {
-        if (inicio.isAfter(fin)) {
-            throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin.");
+    public void planificarProyecto(LocalDate fechaInicio) {
+        if (fechaInicio == null) {
+            throw new IllegalArgumentException("La fecha de inicio no puede ser nula");
         }
-        this.fechaInicioPlanificada = inicio;
-        this.fechaFinPlanificada = fin;
+        this.fechaInicioPlanificada = fechaInicio;
         this.estado = EstadoProyecto.EN_CURSO;
+
+        // Calcular fechas para todas las actividades
+        for (Actividad actividad : actividades) {
+            actividad.calcularFechasPlanificadas(fechaInicio);
+        }
+
+        // Calcular la fecha de fin del proyecto como la mayor fecha de fin de las actividades
+        this.fechaFinPlanificada = actividades.stream()
+                .map(Actividad::getFechaFinPlanificada)
+                .max(LocalDate::compareTo)
+                .orElse(fechaInicio); // Si no hay actividades, usar fechaInicio como fallback
     }
 
     public void finalizar(LocalDate fechaFinReal) {
         for (Actividad actividad : actividades) {
             if (!actividad.isCompletada()) {
-                throw new IllegalArgumentException("Para finalizar un proyecto todas sus actividades " +
-                        "deben estar completadas");
+                throw new IllegalArgumentException("Para finalizar un proyecto todas sus actividades deben estar completadas");
             }
         }
-
         if (fechaFinReal == null) {
             fechaFinReal = LocalDate.now();
         }
-
         this.fechaFinReal = fechaFinReal;
         this.estado = EstadoProyecto.FINALIZADO;
     }

@@ -14,11 +14,10 @@ public class Main {
 
         // Crear un proyecto
         Proyecto proyecto = gerentePortafolio.crearProyecto("Proyecto A", 500, 100000);
-        gerenteProyecto.planificarProyecto(proyecto, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 6, 30));
+        gerenteProyecto.planificarProyecto(proyecto, LocalDate.of(2024, 1, 1));
 
         // Agregar actividades con esquema EDT
         Actividad actividad1 = gerenteProyecto.crearActividad(proyecto, "1", "Actividad Principal", 100);
-        gerenteProyecto.planificarActividad(actividad1, LocalDate.of(2024, 1, 15), LocalDate.of(2024, 2, 15));
         proyecto.agregarActividad(actividad1);
 
         Actividad subActividad1 = gerenteProyecto.crearActividad(
@@ -27,7 +26,6 @@ public class Main {
             "Subactividad 1", 
             50
         );
-        gerenteProyecto.planificarActividad(subActividad1, LocalDate.of(2024, 1, 20), LocalDate.of(2024, 2, 10));
         actividad1.agregarSubactividad(subActividad1);
 
         Actividad subSubActividad1 = gerenteProyecto.crearActividad(
@@ -36,7 +34,6 @@ public class Main {
             "Sub-subactividad 1", 
             25
         );
-        gerenteProyecto.planificarActividad(subSubActividad1, LocalDate.of(2024, 1, 22), LocalDate.of(2024, 2, 5));
         subActividad1.agregarSubactividad(subSubActividad1);
 
         // Mostrar actividades con numeración EDT

@@ -3,15 +3,17 @@ package org.pmtool.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Actividad {
     private String numeroEDT;
     private String nombre;
+    private int duracionDias;
+    private Dependencia dependencia;
     private LocalDate fechaInicioPlanificada;
     private LocalDate fechaFinPlanificada;
     private LocalDate fechaInicioReal;
     private LocalDate fechaFinReal;
-    private int totalHorasEstimadas;
     private EstadoActividad estado;
     private List<Actividad> subactividades;
 
@@ -21,23 +23,64 @@ public class Actividad {
         COMPLETADA;
     }
 
-    public Actividad(String numeroEDT, String nombre, int totalHorasEstimadas) {
-        this.numeroEDT = numeroEDT;
-        this.nombre = nombre;
-        this.totalHorasEstimadas = totalHorasEstimadas;
+    public Actividad(String numeroEDT, String nombre, int duracionDias) {
+        this.numeroEDT = Objects.requireNonNull(numeroEDT, "El número EDT no puede ser nulo");
+        this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
+        if (duracionDias <= 0) {
+            throw new IllegalArgumentException("La duración debe ser mayor a 0 días");
+        }
+        this.duracionDias = duracionDias;
         this.estado = EstadoActividad.PLANIFICADA;
         this.subactividades = new ArrayList<>();
     }
 
-    public void planificarFechas(LocalDate inicio, LocalDate fin) {
-        if (inicio.isAfter(fin)) {
-            throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin.");
+    public void calcularFechasPlanificadas(LocalDate fechaInicioProyecto) {
+        if (fechaInicioProyecto == null) {
+            throw new IllegalArgumentException("La fecha de inicio del proyecto no puede ser nula");
         }
-        this.fechaInicioPlanificada = inicio;
-        this.fechaFinPlanificada = fin;
+
+        if (!subactividades.isEmpty()) {
+            for (Actividad sub : subactividades) {
+                sub.calcularFechasPlanificadas(fechaInicioProyecto);
+            }
+            this.fechaInicioPlanificada = subactividades.stream()
+                    .map(Actividad::getFechaInicioPlanificada)
+                    .filter(Objects::nonNull)
+                    .min(LocalDate::compareTo)
+                    .orElseThrow(() -> new IllegalStateException("No se encontraron fechas de inicio en subactividades"));
+            this.fechaFinPlanificada = subactividades.stream()
+                    .map(Actividad::getFechaFinPlanificada)
+                    .filter(Objects::nonNull)
+                    .max(LocalDate::compareTo)
+                    .orElseThrow(() -> new IllegalStateException("No se encontraron fechas de fin en subactividades"));
+        } else {
+            LocalDate inicio;
+            LocalDate fin;
+            if (dependencia != null) {
+                Actividad pre = dependencia.getPredecesora();
+                if (pre.getFechaInicioPlanificada() == null || pre.getFechaFinPlanificada() == null) {
+                    throw new IllegalStateException("La predecesora debe tener fechas planificadas definidas");
+                }
+                inicio = dependencia.calcularInicioDependiente(pre.getFechaInicioPlanificada(), pre.getFechaFinPlanificada(), duracionDias);
+                fin = dependencia.calcularFinDependiente(pre.getFechaInicioPlanificada(), pre.getFechaFinPlanificada(), duracionDias);
+            } else {
+                inicio = fechaInicioProyecto;
+                fin = inicio.plusDays(duracionDias);
+            }
+            this.fechaInicioPlanificada = inicio;
+            this.fechaFinPlanificada = fin;
+        }
+    }
+
+    public void setDependencia(Dependencia dependencia) {
+        if (dependencia != null && dependencia.getPredecesora() == this) {
+            throw new IllegalArgumentException("Una actividad no puede ser su propia predecesora");
+        }
+        this.dependencia = dependencia;
     }
 
     public void agregarSubactividad(Actividad subactividad) {
+        Objects.requireNonNull(subactividad, "La subactividad no puede ser nula");
         int subNivel = subactividades.size() + 1;
         subactividad.setNumeroEDT(this.numeroEDT + "." + subNivel);
         subactividades.add(subactividad);
@@ -47,16 +90,27 @@ public class Actividad {
         if (EstadoActividad.COMPLETADA.equals(estado)) {
             throw new IllegalStateException("No se puede activar una actividad ya completada.");
         }
-        estado = EstadoActividad.EN_EJECUCION;
-        fechaInicioReal = LocalDate.now();
+        if (dependencia != null) {
+            dependencia.verificarActivacion(this);
+        }
+        this.estado = EstadoActividad.EN_EJECUCION;
+        this.fechaInicioReal = LocalDate.now();
     }
 
     public void desactivar() {
         if (EstadoActividad.PLANIFICADA.equals(estado)) {
             throw new IllegalStateException("No se puede desactivar una actividad que no está en ejecución.");
         }
-        estado = EstadoActividad.COMPLETADA;
-        fechaFinReal = LocalDate.now();
+        if (!subactividades.isEmpty() && !subactividades.stream().allMatch(Actividad::isCompletada)) {
+                throw new IllegalStateException("No se puede desactivar una actividad hasta que todas sus subactividades estén completadas.");
+            }
+        
+        if (fechaFinReal == null) {
+            this.estado = EstadoActividad.COMPLETADA;
+            this.fechaFinReal = LocalDate.now();
+        } else {
+            this.estado = EstadoActividad.COMPLETADA; // Solo cambia estado si ya tiene fechaFinReal
+        }
     }
 
     public String getNumeroEDT() {
@@ -111,16 +165,8 @@ public class Actividad {
         this.fechaFinReal = fechaFinReal;
     }
 
-    public int getTotalHorasEstimadas() {
-        return totalHorasEstimadas;
-    }
-
-    public void setTotalHorasEstimadas(int totalHorasEstimadas) {
-        this.totalHorasEstimadas = totalHorasEstimadas;
-    }
-
     public boolean isCompletada() {
-        return EstadoActividad.COMPLETADA.equals(estado);
+        return EstadoActividad.COMPLETADA.equals(estado) && fechaFinReal != null && (subactividades.isEmpty() || subactividades.stream().allMatch(Actividad::isCompletada));
     }
 
     public boolean isPlanificada() {

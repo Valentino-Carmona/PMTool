@@ -7,8 +7,8 @@ import java.time.LocalDate;
 
 public class GerenteProyecto {
     
-    public void planificarProyecto(Proyecto proyecto, LocalDate inicio, LocalDate fin) {
-        proyecto.planificarFechas(inicio, fin);
+    public void planificarProyecto(Proyecto proyecto, LocalDate inicio) {
+        proyecto.planificarProyecto(inicio);
     }
 
     public void finalizarProyecto(Proyecto proyecto, LocalDate fechaFinReal) {
@@ -18,9 +18,5 @@ public class GerenteProyecto {
     public Actividad crearActividad(Proyecto proyecto, String numeroPadre, String nombre, int horas) {
         String numeroEDT = numeroPadre + "." + (proyecto.getActividades().size() + 1);
         return new Actividad(numeroEDT, nombre, horas);
-    }
-
-    public void planificarActividad(Actividad actividad, LocalDate inicio, LocalDate fin) {
-        actividad.planificarFechas(inicio, fin);
     }
 }
