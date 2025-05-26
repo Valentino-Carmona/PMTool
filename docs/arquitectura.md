@@ -8,7 +8,7 @@ Este documento describe la arquitectura de PMTool usando el modelo C4. A continu
 
 ![Diagrama de Contexto](./img/Diagrama_De_Contexto.png)
 
-```plantuml
+```txt
 @startuml
 !includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
@@ -47,7 +47,7 @@ Soporte --> PMTool : Da soporte técnico
 
 ![Diagrama de Contenedores](./img/Diagrama_De_Contenedores.png)
 
-```plantuml
+```txt
 @startuml
 !includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
