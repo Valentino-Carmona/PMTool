@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Proyecto {
-    private static int contadorProyectos = 1; // Autonumeración de proyectos
+    private static int contadorProyectos = 1;
     private int numero;
     private String nombre;
     private LocalDate fechaInicioPlanificada;
@@ -32,32 +32,53 @@ public class Proyecto {
         this.actividades = new ArrayList<>();
     }
 
-    public void planificarFechas(LocalDate inicio, LocalDate fin) {
-        if (inicio.isAfter(fin)) {
-            throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin.");
+    public void planificarProyecto(LocalDate fechaInicio) {
+        if (this.estado != EstadoProyecto.PLANIFICADO) {
+            throw new IllegalStateException("El proyecto debe estar planificado para poder estar en curso");
         }
-        this.fechaInicioPlanificada = inicio;
-        this.fechaFinPlanificada = fin;
+
+        if (fechaInicio == null) {
+            throw new IllegalArgumentException("La fecha de inicio no puede ser nula");
+        }
+        
+        this.fechaInicioPlanificada = fechaInicio;
+        this.fechaInicioReal = fechaInicio;
         this.estado = EstadoProyecto.EN_CURSO;
+
+        // Calcular fechas para todas las actividades
+        for (Actividad actividad : actividades) {
+            actividad.calcularFechasPlanificadas(fechaInicio);
+        }
+
+        // Calcular la fecha de fin del proyecto como la mayor fecha de fin de las actividades
+        this.fechaFinPlanificada = actividades.stream()
+                .map(Actividad::getFechaFinPlanificada)
+                .max(LocalDate::compareTo)
+                .orElse(fechaInicio); // Si no hay actividades, usar fechaInicio como fallback
     }
 
-    public void finalizar(LocalDate fechaFinReal) {
+    public void finalizar() {
+        if (this.estado != EstadoProyecto.EN_CURSO) {
+            throw new IllegalStateException("El proyecto debe estar en curso para poder finalizarlo");
+        }
+
         for (Actividad actividad : actividades) {
             if (!actividad.isCompletada()) {
-                throw new IllegalArgumentException("Para finalizar un proyecto todas sus actividades " +
-                        "deben estar completadas");
+                throw new IllegalArgumentException("Para finalizar un proyecto todas sus actividades deben estar completadas");
             }
         }
-
-        if (fechaFinReal == null) {
-            fechaFinReal = LocalDate.now();
-        }
-
-        this.fechaFinReal = fechaFinReal;
+        this.fechaFinReal = LocalDate.now();
         this.estado = EstadoProyecto.FINALIZADO;
     }
 
+    public boolean igualNombre(String nombre) {
+        return this.nombre.equals(nombre);
+    }
+
     public void agregarActividad(Actividad actividad) {
+        if (this.estado == EstadoProyecto.FINALIZADO) {
+            throw new IllegalStateException("No se pueden agregar actividades a un proyecto finalizado");
+        }
         actividades.add(actividad);
     }
 
@@ -99,10 +120,6 @@ public class Proyecto {
 
     public LocalDate getFechaInicioReal() {
         return fechaInicioReal;
-    }
-
-    public void setFechaInicioReal(LocalDate fechaInicioReal) {
-        this.fechaInicioReal = fechaInicioReal;
     }
 
     public LocalDate getFechaFinReal() {

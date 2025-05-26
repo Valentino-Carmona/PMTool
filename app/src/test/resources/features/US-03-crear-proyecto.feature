@@ -15,3 +15,9 @@ Feature: Inclusión de un nuevo proyecto en el portafolio
     When el Gerente de Portafolio solicita agregar un nuevo proyecto con el nombre "Proyecto Test"
     Then se muestra un mensaje de error indicando que el nombre del proyecto ya existe
     And no se registra el proyecto en el portafolio
+
+  Scenario: Intentar crear un proyecto sin nombre
+    Given existe un portafolio de proyectos
+    When el Gerente de Portafolio solicita agregar un nuevo proyecto sin nombre
+    Then se muestra un mensaje de error indicando que el nombre del proyecto es obligatorio
+    And no se registra el proyecto en el portafolio

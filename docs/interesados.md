@@ -16,18 +16,13 @@ Los interesados (stakeholders) de PMTool:
    - **Descripción**: Administra proyectos individuales, planifica actividades, asigna recursos y asegura cumplimiento de alcance, tiempo y presupuesto.  
    - **Origen**: Requisitos 2.2, 2.3, 2.5, 2.6, 3.1, 3.2; Historias de Dominio PMTool-002, PMTool-003.  
    - **Rol en PMTool**: Planifica y ejecuta proyectos, gestiona EDT y estados de actividades.   
-
-3. **Recurso**  
-   - **Descripción**: Miembros del equipo o contratistas asignados a actividades específicas.  
-   - **Origen**: Requisito 3.2.6; Historias de Dominio PMTool-002, PMTool-003.  
-   - **Rol en PMTool**: Ejecuta actividades asignadas y reporta su estado.  
-
-4. **Organización**  
+  
+3. **Organización**  
    - **Descripción**: Entidad que adopta PMTool, establece objetivos, asigna presupuestos y se beneficia de los proyectos.  
    - **Origen**: Requisitos 1.1, 1.5, 5.1; Historia de Dominio PMTool-001.  
    - **Rol en PMTool**: Define metas y provee recursos, pero no interactúa directamente con el sistema (rol indirecto).  
 
-5. **Soporte**  
+4. **Soporte**  
    - **Descripción**: Equipo técnico que mantiene PMTool, resuelve problemas y asegura su operatividad. 
    - **Origen**: Requisito 4.1.  
    - **Rol en PMTool**: Asegura estabilidad del sistema y resuelve problemas de los usuarios, con funciones de desarrollo y mantenimiento.
@@ -46,7 +41,6 @@ Los interesados (stakeholders) de PMTool:
    - **Actores**:
       - **Gerente de Portafolio**: Crea y supervisa proyectos.
       - **Gerente de Proyecto**: Planifica, ejecuta y finaliza proyectos y gestiona EDT.
-      - **Recurso**: Ejecuta actividades y reporta estados.
 #### Capa 2: El Sistema Contenedor
    - **Descripción**: Entidad que provee contexto y recursos para PMTool, pero no lo usa directamente.
    - **Actores**:

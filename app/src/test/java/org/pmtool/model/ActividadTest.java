@@ -3,6 +3,7 @@ package org.pmtool.model;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Assertions;
+
 import java.time.LocalDate;
 
 public class ActividadTest {
@@ -18,29 +19,19 @@ public class ActividadTest {
         Assertions.assertNotNull(actividad);
         Assertions.assertEquals("1.1", actividad.getNumeroEDT());
         Assertions.assertEquals("Actividad Test", actividad.getNombre());
-        Assertions.assertEquals(40, actividad.getTotalHorasEstimadas());
+        Assertions.assertEquals(40, actividad.getDuracionDias());
         Assertions.assertTrue(actividad.isPlanificada());
     }
 
     @Test
     void testPlanificarFechas() {
         LocalDate inicio = LocalDate.of(2024, 1, 1);
-        LocalDate fin = LocalDate.of(2024, 12, 31);
+        LocalDate fin = LocalDate.of(2024, 2, 10);
         
-        actividad.planificarFechas(inicio, fin);
+        actividad.calcularFechasPlanificadas(inicio);
         
         Assertions.assertEquals(inicio, actividad.getFechaInicioPlanificada());
         Assertions.assertEquals(fin, actividad.getFechaFinPlanificada());
-    }
-
-    @Test
-    void testPlanificarFechasInvertidas() {
-        LocalDate inicio = LocalDate.of(2024, 12, 31);
-        LocalDate fin = LocalDate.of(2024, 1, 1);
-        
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            actividad.planificarFechas(inicio, fin);
-        });
     }
 
     @Test
@@ -85,6 +76,40 @@ public class ActividadTest {
     void testDesactivarActividadNoEnEjecucion() {
         Assertions.assertThrows(IllegalStateException.class, () -> {
             actividad.desactivar();
+        });
+    }
+
+    @Test
+    void testAgregarSubactividadAActividadCompletada() {
+        actividad.activar();
+        actividad.desactivar();
+
+        Actividad subactividad = new Actividad("1.1.1", "Subactividad", 20);
+
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            actividad.agregarSubactividad(subactividad);
+        });
+    }
+
+    @Test
+    void testCalcularFechasPlanificadasConDependenciaCorrectamente() {
+        Actividad predecesora = new Actividad("1", "Predecesora", 5);
+        predecesora.calcularFechasPlanificadas(LocalDate.of(2025, 4, 1));
+
+        actividad.setDependencia(new FinishToStart(predecesora, 2));
+        actividad.calcularFechasPlanificadas(LocalDate.of(2025, 4, 1));
+
+        Assertions.assertEquals(LocalDate.of(2025, 4, 9), actividad.getFechaInicioPlanificada());
+        Assertions.assertEquals(LocalDate.of(2025, 5, 19), actividad.getFechaFinPlanificada());
+    }
+
+    @Test
+    void testNoActivarActividadConDependenciaPredecesoraNoFinalizada() {
+        Actividad predecesora = new Actividad("1", "Predecesora", 5);
+        actividad.setDependencia(new FinishToStart(predecesora, 0));
+
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            actividad.activar();
         });
     }
 } 

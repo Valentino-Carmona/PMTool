@@ -10,8 +10,14 @@ Feature: Finalización de actividad y su impacto en el proyecto
     Then el estado de la actividad cambia a "COMPLETADA"
     And la fecha real de finalización se actualizo automaticamente
 
-  Scenario: Intento de finalizar actividad sin fecha real de finalización
-    Given existe una actividad en estado "EN_EJECUCION"
-    When el Gerente de Proyecto intenta modificar el estado a "COMPLETADA" sin proveer la fecha real de finalización
-    Then se informa un mensaje indicando que falta la fecha real de finalización
-    And la actividad mantiene su estado en "EN_EJECUCION"
+  Scenario: Intento de finalizar actividad sin haber iniciado la actividad
+    Given existe una actividad en estado "PLANIFICADA"
+    When el Gerente de Proyecto intenta modificar el estado a "COMPLETADA"
+    Then se informa un mensaje indicando que la actividad debe estar EN_EJECUCION para poder finalizarla
+    And la actividad mantiene su estado en "PLANIFICADA"
+
+  Scenario: Intentar finalizar una actividad ya completada
+    Given existe una actividad en estado "COMPLETADA"
+    When el Gerente de Proyecto informa la finalización de la actividad
+    Then se muestra un mensaje de error indicando que la actividad ya está completada
+    And la actividad mantiene su estado en "COMPLETADA"

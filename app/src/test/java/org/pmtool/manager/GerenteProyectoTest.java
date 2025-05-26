@@ -20,15 +20,11 @@ public class GerenteProyectoTest {
     @Test
     void testPlanificarProyecto() {
         LocalDate inicio = LocalDate.of(2024, 1, 1);
-        LocalDate fin = LocalDate.of(2024, 12, 31);
         
-        gerente.planificarProyecto(proyecto, inicio, fin);
+        gerente.planificarProyecto(proyecto, inicio);
         // La planificación no debería lanzar excepción
         
-        // Verificar que lanza excepción cuando las fechas están invertidas
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            gerente.planificarProyecto(proyecto, fin, inicio);
-        });
+        Assertions.assertEquals(Proyecto.EstadoProyecto.EN_CURSO, proyecto.getEstado());
     }
 
     @Test
@@ -36,22 +32,34 @@ public class GerenteProyectoTest {
         Actividad actividad = gerente.crearActividad(proyecto, "1", "Nueva Actividad", 80);
         
         Assertions.assertNotNull(actividad);
-        Assertions.assertEquals("1.1", actividad.getNumeroEDT());
+        Assertions.assertEquals("1", actividad.getNumeroEDT());
         Assertions.assertEquals("Nueva Actividad", actividad.getNombre());
     }
 
     @Test
-    void testPlanificarActividad() {
-        Actividad actividad = gerente.crearActividad(proyecto, "1", "Actividad Test", 40);
-        LocalDate inicio = LocalDate.of(2024, 2, 1);
-        LocalDate fin = LocalDate.of(2024, 3, 31);
-        
-        gerente.planificarActividad(actividad, inicio, fin);
-        // La planificación no debería lanzar excepción
-        
-        // Verificar que lanza excepción cuando las fechas están invertidas
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            gerente.planificarActividad(actividad, fin, inicio);
-        });
+    void testConfigurarDependenciaConAdelanto() {
+        Actividad actividadA = gerente.crearActividad(proyecto, "1", "Actividad A", 5);
+        Actividad actividadB = gerente.crearActividad(proyecto, "2", "Actividad B", 3);
+
+        proyecto.agregarActividad(actividadA);
+        proyecto.agregarActividad(actividadB);
+
+        gerente.configurarDependencia(actividadB, actividadA, "FS", -1);
+
+        Assertions.assertNotNull(actividadB.getDependencia());
+        Assertions.assertEquals(-1, actividadB.getDependencia().getLeadLag());
     }
+
+    @Test
+    void testConfigurarDependenciaNoSoportada() {
+        Actividad actividadA = gerente.crearActividad(proyecto, "1", "Actividad A", 5);
+        Actividad actividadB = gerente.crearActividad(proyecto, "2", "Actividad B", 3);
+
+        proyecto.agregarActividad(actividadA);
+        proyecto.agregarActividad(actividadB);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            gerente.configurarDependencia(actividadB, actividadA, "falsaDependencia", 0);
+        });
+}
 } 
