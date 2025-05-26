@@ -82,6 +82,7 @@ La solución PMTool permite a los usuarios:
 6.2 No se podrá activar una actividad que ya está "COMPLETADA".  
 6.3 No se podrá desactivar una actividad que no está "EN_EJECUCION".  
 6.4 Los números EDT reflejarán la estructura jerárquica de las actividades. 
+6.5 Las operaciones matematicas entre fechas se hacen de manera exclusiva.
 
 ## Matriz de Trazabilidad
 
