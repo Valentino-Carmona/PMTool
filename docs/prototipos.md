@@ -124,6 +124,8 @@
 - **Decisión**: Interfaces que reflejan procesos reales de gestión de proyectos
 - **Justificación**: Facilita adopción por usuarios familiarizados con metodologías PM
 
-Enlace al prototipo navegable: https://www.figma.com/design/hFTAmDw03fC3X70Vi29zVv/PMTool?node-id=0-1&t=Z6ISqfCP4raBgn2x-1
+- Enlace al prototipo navegable(es el que falla, pero cumple la funcion): https://www.figma.com/proto/hFTAmDw03fC3X70Vi29zVv/PMTool?node-id=4-5388&p=f&t=Ji59y6wYZXWxla7R-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4%3A5388
+
+- Este es el enlace al prototipo, area de trabajo: https://www.figma.com/design/hFTAmDw03fC3X70Vi29zVv/PMTool?node-id=0-1&t=Z6ISqfCP4raBgn2x-1
 
 (Quiero aclarar que estoy teniendo problemas con el modo presentacion, hay elementos que ESTAN creados, pero por algun motivo no se muestran. Por eso paso fotos a modo de prueba)
