@@ -9,7 +9,7 @@
 - **Justificación**: Refleja el proceso natural de trabajo: autenticación → vista general → tareas específicas
 - **Coherencia**: Alineado con las historias de dominio (ddd-001, ddd-002, ddd-003)
 
-![PMTool logIn](./img/logIn.png)
+![PMTool logIn](./img/PMTool_Prototipo/logIn.png)
 
 ## **2. Sistema de Diseño Visual**
 
@@ -41,7 +41,7 @@
 - Coherente con patrones modernos de UI
 - **Aplicación**: Proyectos, actividades, dependencias, formularios
 
-![PMTool Portafolio](./img/Portafolio.png)
+![PMTool Portafolio](./img/PMTool_Prototipo/Portafolio.png)
 
 ### **Estados Visuales Diferenciados**
 
@@ -64,7 +64,7 @@
 - Acelera las pruebas de concepto
 - **Ejemplos**: "Sistema de Gestión de RRHH", emails corporativos, fechas realistas
 
-![PMTool Portafolio](./img/CrearProyecto.png)
+![PMTool Portafolio](./img/PMTool_Prototipo/CrearProyecto.png)
 
 ## **5. Gestión de Información Compleja**
 
@@ -88,7 +88,7 @@
 - Diferentes tipos de datos requieren diferentes representaciones
 - Facilita comparación rápida entre elementos
 
-![PMTool Proyecto](./img/Proyecto.png)
+![PMTool Proyecto](./img/PMTool_Prototipo/Proyecto.png)
 
 ## **6. Feedback y Estados de Carga**
 
