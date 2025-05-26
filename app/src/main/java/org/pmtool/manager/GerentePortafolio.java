@@ -9,7 +9,10 @@ public class GerentePortafolio {
     private List<Proyecto> proyectos = new ArrayList<>();
 
     public Proyecto crearProyecto(String nombre, int horas, double presupuesto) {
-        // Verificar si ya existe un proyecto con el mismo nombre
+        if(nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre del proyecto no puede ser nulo o vacío");
+        }
+        
         for (Proyecto proyecto : proyectos) {
             if (proyecto.igualNombre(nombre)) {
                 throw new IllegalArgumentException("El nombre del proyecto ya existe");

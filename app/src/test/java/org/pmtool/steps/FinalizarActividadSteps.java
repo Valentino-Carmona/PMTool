@@ -17,10 +17,16 @@ public class FinalizarActividadSteps {
 
     @Given("existe una actividad en estado {string}")
     public void existeUnaActividadEnEstado(String estado) {
+        actividad = null;
+        exception = null;
+
         actividad = new Actividad("1", "Actividad", 5);
         if (estado.equals("EN_EJECUCION")) {
             actividad.activar();
-        }
+        } else if(estado.equals("COMPLETADA")) {
+            actividad.activar();
+            actividad.desactivar();
+        } 
         assertEquals(EstadoActividad.valueOf(estado), actividad.getEstado());
     }
 
@@ -46,9 +52,8 @@ public class FinalizarActividadSteps {
     @When("el Gerente de Proyecto intenta modificar el estado a {string}")
     public void elGerenteDeProyectoIntentaModificarElEstadoA(String estado) {
         try {
-            if (estado.equals("COMPLETADA")) {
-                actividad.desactivar();
-            }
+            actividad.desactivar();
+            
         } catch (IllegalStateException e) {
             exception = e;
         }
@@ -63,5 +68,11 @@ public class FinalizarActividadSteps {
     @And("la actividad mantiene su estado en {string}")
     public void laActividadMantieneSuEstadoEn(String estado) {
         assertEquals(EstadoActividad.valueOf(estado), actividad.getEstado());
+    }
+
+    @Then("se muestra un mensaje de error indicando que la actividad ya está completada")
+    public void seMuestraUnMensajeDeErrorIndicandoQueLaActividadYaEstaCompletada() {
+        assertNotNull(exception);
+        assertEquals("No se puede desactivar una actividad ya completada.", exception.getMessage());
     }
 }
