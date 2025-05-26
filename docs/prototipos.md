@@ -9,7 +9,7 @@
 - **Justificación**: Refleja el proceso natural de trabajo: autenticación → vista general → tareas específicas
 - **Coherencia**: Alineado con las historias de dominio (ddd-001, ddd-002, ddd-003)
 
-![PMTool logIn](./img/logIn.png)
+![PMTool logIn](./img/PMTool_Prototipo/logIn.png)
 
 ## **2. Sistema de Diseño Visual**
 
@@ -41,7 +41,7 @@
 - Coherente con patrones modernos de UI
 - **Aplicación**: Proyectos, actividades, dependencias, formularios
 
-![PMTool Portafolio](./img/Portafolio.png)
+![PMTool Portafolio](./img/PMTool_Prototipo/Portafolio.png)
 
 ### **Estados Visuales Diferenciados**
 
@@ -64,7 +64,7 @@
 - Acelera las pruebas de concepto
 - **Ejemplos**: "Sistema de Gestión de RRHH", emails corporativos, fechas realistas
 
-![PMTool Portafolio](./img/CrearProyecto.png)
+![PMTool Portafolio](./img/PMTool_Prototipo/CrearProyecto.png)
 
 ## **5. Gestión de Información Compleja**
 
@@ -88,7 +88,7 @@
 - Diferentes tipos de datos requieren diferentes representaciones
 - Facilita comparación rápida entre elementos
 
-![PMTool Proyecto](./img/Proyecto.png)
+![PMTool Proyecto](./img/PMTool_Prototipo/Proyecto.png)
 
 ## **6. Feedback y Estados de Carga**
 
@@ -124,6 +124,8 @@
 - **Decisión**: Interfaces que reflejan procesos reales de gestión de proyectos
 - **Justificación**: Facilita adopción por usuarios familiarizados con metodologías PM
 
-Enlace al prototipo navegable: https://www.figma.com/design/hFTAmDw03fC3X70Vi29zVv/PMTool?node-id=0-1&t=Z6ISqfCP4raBgn2x-1
+- Enlace al prototipo navegable(es el que falla, pero cumple la funcion): https://www.figma.com/proto/hFTAmDw03fC3X70Vi29zVv/PMTool?node-id=4-5388&p=f&t=Ji59y6wYZXWxla7R-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4%3A5388
+
+- Este es el enlace al prototipo, area de trabajo: https://www.figma.com/design/hFTAmDw03fC3X70Vi29zVv/PMTool?node-id=0-1&t=Z6ISqfCP4raBgn2x-1
 
 (Quiero aclarar que estoy teniendo problemas con el modo presentacion, hay elementos que ESTAN creados, pero por algun motivo no se muestran. Por eso paso fotos a modo de prueba)
