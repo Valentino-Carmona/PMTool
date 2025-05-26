@@ -1,8 +1,6 @@
 package org.pmtool.manager;
 
-import org.pmtool.model.Proyecto;
-import org.pmtool.model.Actividad;
-import org.pmtool.model.FinishToStart;
+import org.pmtool.model.*;
 
 import java.time.LocalDate;
 
@@ -34,11 +32,13 @@ public class GerenteProyecto {
                 actividad.setDependencia(new FinishToStart(predecesora, leadLag));
                 break;
             case "FF":
-                throw new UnsupportedOperationException("Dependencia Finish to Finish pendiente de implementación");
+                actividad.setDependencia(new FinishToFinish(predecesora, leadLag));
             case "SS":
-                throw new UnsupportedOperationException("Dependencia Start to Start pendiente de implementación");
+                actividad.setDependencia(new StartToStart(predecesora, leadLag));
+                break;
             case "SF":
-                throw new UnsupportedOperationException("Dependencia Start to Finish pendiente de implementación");
+                actividad.setDependencia(new StartToFinish(predecesora, leadLag));
+                break;
             default:
                 throw new IllegalArgumentException("Tipo de dependencia no soportado: " + tipo);
         }

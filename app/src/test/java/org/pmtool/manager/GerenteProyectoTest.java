@@ -35,4 +35,31 @@ public class GerenteProyectoTest {
         Assertions.assertEquals("1", actividad.getNumeroEDT());
         Assertions.assertEquals("Nueva Actividad", actividad.getNombre());
     }
+
+    @Test
+    void testConfigurarDependenciaConAdelanto() {
+        Actividad actividadA = gerente.crearActividad(proyecto, "1", "Actividad A", 5);
+        Actividad actividadB = gerente.crearActividad(proyecto, "2", "Actividad B", 3);
+
+        proyecto.agregarActividad(actividadA);
+        proyecto.agregarActividad(actividadB);
+
+        gerente.configurarDependencia(actividadB, actividadA, "FS", -1);
+
+        Assertions.assertNotNull(actividadB.getDependencia());
+        Assertions.assertEquals(-1, actividadB.getDependencia().getLeadLag());
+    }
+
+    @Test
+    void testConfigurarDependenciaNoSoportada() {
+        Actividad actividadA = gerente.crearActividad(proyecto, "1", "Actividad A", 5);
+        Actividad actividadB = gerente.crearActividad(proyecto, "2", "Actividad B", 3);
+
+        proyecto.agregarActividad(actividadA);
+        proyecto.agregarActividad(actividadB);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            gerente.configurarDependencia(actividadB, actividadA, "falsaDependencia", 0);
+        });
+}
 } 

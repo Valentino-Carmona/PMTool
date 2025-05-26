@@ -69,4 +69,34 @@ public class ProyectoTest {
             proyecto.finalizar();
         });
     }
+
+    @Test
+    void testNoAgregarActividadAProyectoFinalizado() {
+        proyecto.planificarProyecto(LocalDate.now());
+        proyecto.finalizar();
+
+        Actividad actividad = new Actividad("1.2", "Nueva Actividad", 20);
+
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            proyecto.agregarActividad(actividad);
+        });
+    }
+
+    @Test
+    void testPlanificarProyectoSinFechaInicio() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            proyecto.planificarProyecto(null);
+        });
+    }
+
+    @Test
+    void testFinalizarProyectoSinActividades() {
+        proyecto.planificarProyecto(LocalDate.now());
+        Actividad actividad = new Actividad("1.2", "Nueva Actividad", 20);
+        proyecto.agregarActividad(actividad);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            proyecto.finalizar();
+        });
+    }
 } 

@@ -76,6 +76,9 @@ public class Proyecto {
     }
 
     public void agregarActividad(Actividad actividad) {
+        if (this.estado == EstadoProyecto.FINALIZADO) {
+            throw new IllegalStateException("No se pueden agregar actividades a un proyecto finalizado");
+        }
         actividades.add(actividad);
     }
 

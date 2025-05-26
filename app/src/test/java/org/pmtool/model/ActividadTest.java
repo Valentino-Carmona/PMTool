@@ -78,4 +78,38 @@ public class ActividadTest {
             actividad.desactivar();
         });
     }
+
+    @Test
+    void testAgregarSubactividadAActividadCompletada() {
+        actividad.activar();
+        actividad.desactivar();
+
+        Actividad subactividad = new Actividad("1.1.1", "Subactividad", 20);
+
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            actividad.agregarSubactividad(subactividad);
+        });
+    }
+
+    @Test
+    void testCalcularFechasPlanificadasConDependenciaCorrectamente() {
+        Actividad predecesora = new Actividad("1", "Predecesora", 5);
+        predecesora.calcularFechasPlanificadas(LocalDate.of(2025, 4, 1));
+
+        actividad.setDependencia(new FinishToStart(predecesora, 2));
+        actividad.calcularFechasPlanificadas(LocalDate.of(2025, 4, 1));
+
+        Assertions.assertEquals(LocalDate.of(2025, 4, 9), actividad.getFechaInicioPlanificada());
+        Assertions.assertEquals(LocalDate.of(2025, 5, 19), actividad.getFechaFinPlanificada());
+    }
+
+    @Test
+    void testNoActivarActividadConDependenciaPredecesoraNoFinalizada() {
+        Actividad predecesora = new Actividad("1", "Predecesora", 5);
+        actividad.setDependencia(new FinishToStart(predecesora, 0));
+
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            actividad.activar();
+        });
+    }
 } 
