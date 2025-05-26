@@ -8,45 +8,44 @@ El siguiente diagrama está en PlantUML y representa las entidades, sus atributo
 
 ```txt
 @startuml
-
 ' Entidades
 
 class Proyecto {
-  + {id} numero
-  + nombre
-  + horasEstimadas
-  + presupuesto
-  + estado
-  + fechaInicioPlanificada
-  + fechaFinPlanificada
-  + fechaInicioReal
-  + fechaFinReal
+   {id} numero
+   nombre
+   horasEstimadas
+   presupuesto
+   estado
+   fechaInicioPlanificada
+   fechaFinPlanificada
+   fechaInicioReal
+   fechaFinReal
 }
 
 class Actividad {
-  + {id} numeroEDT
-  + nombre
-  + fechaInicioPlanificada
-  + fechaFinPlanificada
-  + fechaInicioReal
-  + fechaFinReal
-  + horasEstimadas
-  + estado
-  + responsable
+   {id} numeroEDT
+   nombre
+   fechaInicioPlanificada
+   fechaFinPlanificada
+   fechaInicioReal
+   fechaFinReal
+   horasEstimadas
+   estado
+   responsable
 }
 
 class Dependencia {
-  + {id} idDependencia
-  + tipo
-  + lag
-  + lead
+   {id} idDependencia
+   tipo
+   lag/lead
 }
 
 ' Relaciones
 Proyecto "1" -- "0..*" Actividad : contiene
 Actividad "0..1" -- "0..*" Actividad : tiene
-Dependencia "0..*" -- "1" Actividad : origen
-Dependencia "0..*" -- "1" Actividad : destino
+Dependencia "0..1" -- "1" Actividad : predecesora
+Dependencia "0..1" -- "1" Actividad : dependiente
+
 
 note left of Actividad
   Estado: PLANIFICADA, EN_EJECUCION, COMPLETADA.
@@ -55,8 +54,9 @@ note left of Actividad
 end note
 
 note left of Dependencia
-  Tipo: FS, SS, FF, SF.
-  lag/lead: tiempo de retraso o adelanto en días.
+  Tipo: FinishToStart, StartToFinish, 
+        StartToStart, FinishToFinish.
+  Lag/lead es el retraso o adelanto en dias.
 end note
 
 @enduml

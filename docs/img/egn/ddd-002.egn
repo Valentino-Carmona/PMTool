@@ -25,234 +25,198 @@
   "dst": [
     {
       "type": "domainStory:activity",
-      "name": "para una",
-      "id": "connection_1019",
+      "name": "como",
+      "id": "connection_0906",
       "pickedColor": "black",
       "number": null,
       "waypoints": [
         {
           "original": {
-            "x": 411,
+            "x": 36,
             "y": 260
           },
-          "x": 454,
+          "x": -2,
           "y": 260
         },
         {
           "original": {
-            "x": 628,
+            "x": -122,
             "y": 260
           },
-          "x": 590,
+          "x": -79,
           "y": 260
         }
       ],
-      "source": "shape_8171",
-      "target": "shape_7060",
+      "source": "shape_6297",
+      "target": "shape_6886",
       "multipleNumberAllowed": false
     },
     {
       "type": "domainStory:activity",
-      "name": "a",
-      "id": "connection_1675",
+      "name": "asigna",
+      "id": "connection_0994",
       "pickedColor": "black",
-      "number": null,
+      "number": 3,
       "waypoints": [
         {
           "original": {
-            "x": 411,
-            "y": 379
+            "x": 212,
+            "y": 177
           },
-          "x": 454,
-          "y": 379
+          "x": 242,
+          "y": 164
         },
         {
           "original": {
-            "x": 628,
-            "y": 379
+            "x": 406,
+            "y": 92
           },
-          "x": 590,
-          "y": 379
+          "x": 368,
+          "y": 109
         }
       ],
-      "source": "shape_7437",
-      "target": "shape_8949",
+      "source": "shape_9077",
+      "target": "shape_8209",
       "multipleNumberAllowed": false
     },
     {
       "type": "domainStory:activity",
-      "name": "agrega",
-      "id": "connection_2101",
+      "name": "marca",
+      "id": "connection_1202",
       "pickedColor": "black",
       "number": 2,
       "waypoints": [
         {
           "original": {
-            "x": 205,
-            "y": 212
+            "x": 212,
+            "y": 177
           },
-          "x": 237,
-          "y": 202
+          "x": 174,
+          "y": 195
         },
         {
           "original": {
-            "x": 411,
-            "y": 148
+            "x": 36,
+            "y": 260
           },
-          "x": 373,
-          "y": 160
+          "x": 65,
+          "y": 246
         }
       ],
       "source": "shape_9077",
-      "target": "shape_4164",
+      "target": "shape_6297",
       "multipleNumberAllowed": false
     },
     {
       "type": "domainStory:activity",
-      "name": "en",
+      "name": "a",
+      "id": "connection_2757",
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": 406,
+            "y": 92
+          },
+          "x": 449,
+          "y": 92
+        },
+        {
+          "original": {
+            "x": 565,
+            "y": 92
+          },
+          "x": 527,
+          "y": 92
+        }
+      ],
+      "source": "shape_8209",
+      "target": "shape_0609",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "con",
       "id": "connection_3091",
       "pickedColor": "black",
       "number": null,
       "waypoints": [
         {
           "original": {
-            "x": 411,
-            "y": 38
+            "x": 36,
+            "y": 92
           },
-          "x": 454,
-          "y": 38
+          "x": -2,
+          "y": 92
         },
         {
           "original": {
-            "x": 628,
-            "y": 38
+            "x": -122,
+            "y": 92
           },
-          "x": 590,
-          "y": 38
+          "x": -79,
+          "y": 92
         }
       ],
       "source": "shape_1624",
-      "target": "shape_9847",
+      "target": "shape_8090",
       "multipleNumberAllowed": false
     },
     {
       "type": "domainStory:activity",
-      "name": "recibe",
-      "id": "connection_3997",
-      "pickedColor": "black",
-      "number": 5,
-      "waypoints": [
-        {
-          "original": {
-            "x": 628,
-            "y": 423
-          },
-          "x": 628,
-          "y": 426
-        },
-        {
-          "x": 628,
-          "y": 456
-        },
-        {
-          "x": 411,
-          "y": 456
-        },
-        {
-          "original": {
-            "x": 411,
-            "y": 379
-          },
-          "x": 411,
-          "y": 426
-        }
-      ],
-      "source": "shape_8949",
-      "target": "shape_7437",
-      "multipleNumberAllowed": false
-    },
-    {
-      "type": "domainStory:activity",
-      "name": "para una",
-      "id": "connection_8112",
+      "name": "en",
+      "id": "connection_4918",
       "pickedColor": "black",
       "number": null,
       "waypoints": [
         {
           "original": {
-            "x": 411,
-            "y": 148
-          },
-          "x": 454,
-          "y": 148
-        },
-        {
-          "original": {
-            "x": 628,
-            "y": 148
-          },
-          "x": 590,
-          "y": 148
-        }
-      ],
-      "source": "shape_4164",
-      "target": "shape_2110",
-      "multipleNumberAllowed": false
-    },
-    {
-      "type": "domainStory:activity",
-      "name": "define",
-      "id": "connection_8529",
-      "pickedColor": "black",
-      "number": 3,
-      "waypoints": [
-        {
-          "original": {
-            "x": 205,
-            "y": 212
-          },
-          "x": 247,
-          "y": 222
-        },
-        {
-          "original": {
-            "x": 411,
+            "x": 406,
             "y": 260
           },
-          "x": 373,
-          "y": 251
+          "x": 449,
+          "y": 260
+        },
+        {
+          "original": {
+            "x": 565,
+            "y": 260
+          },
+          "x": 527,
+          "y": 260
         }
       ],
-      "source": "shape_9077",
-      "target": "shape_8171",
+      "source": "shape_7023",
+      "target": "shape_7895",
       "multipleNumberAllowed": false
     },
     {
       "type": "domainStory:activity",
-      "name": "asigna",
-      "id": "connection_8604",
+      "name": "crea",
+      "id": "connection_7578",
       "pickedColor": "black",
       "number": 4,
       "waypoints": [
         {
           "original": {
-            "x": 205,
-            "y": 212
+            "x": 212,
+            "y": 177
           },
-          "x": 233,
-          "y": 235
+          "x": 248,
+          "y": 192
         },
         {
           "original": {
-            "x": 411,
-            "y": 379
+            "x": 406,
+            "y": 260
           },
-          "x": 373,
-          "y": 348
+          "x": 368,
+          "y": 244
         }
       ],
       "source": "shape_9077",
-      "target": "shape_7437",
+      "target": "shape_7023",
       "multipleNumberAllowed": false
     },
     {
@@ -264,19 +228,19 @@
       "waypoints": [
         {
           "original": {
-            "x": 205,
-            "y": 212
+            "x": 212,
+            "y": 177
           },
-          "x": 227,
-          "y": 191
+          "x": 174,
+          "y": 159
         },
         {
           "original": {
-            "x": 390,
-            "y": 38
+            "x": 36,
+            "y": 92
           },
-          "x": 373,
-          "y": 54
+          "x": 71,
+          "y": 109
         }
       ],
       "source": "shape_9077",
@@ -284,71 +248,70 @@
       "multipleNumberAllowed": false
     },
     {
+      "type": "domainStory:workObjectView-List",
+      "name": "Proyecto",
+      "id": "shape_0609",
+      "x": 527,
+      "y": 54
+    },
+    {
       "type": "domainStory:workObjectAssignment",
       "name": "Actividad Principal",
       "id": "shape_1624",
-      "x": 373,
-      "y": 0,
+      "x": -2,
+      "y": 54,
       "pickedColor": "#1e88e5"
+    },
+    {
+      "type": "domainStory:workObjectWrench",
+      "name": "Estado",
+      "id": "shape_6297",
+      "x": -2,
+      "y": 222
+    },
+    {
+      "type": "domainStory:workObjectWrench",
+      "name": "PLANIFICADA",
+      "id": "shape_6886",
+      "x": -160,
+      "y": 222
+    },
+    {
+      "type": "domainStory:workObjectAssignment",
+      "name": "Otra   Actividad",
+      "id": "shape_7023",
+      "x": 368,
+      "y": 222
     },
     {
       "type": "domainStory:workObjectAssignment",
       "name": "Actividad Principal",
-      "id": "shape_2110",
-      "x": 590,
-      "y": 110,
-      "pickedColor": "#1e88e5"
-    },
-    {
-      "type": "domainStory:workObjectAssignment",
-      "name": "Subactividad",
-      "id": "shape_4164",
-      "x": 373,
-      "y": 110
-    },
-    {
-      "type": "domainStory:workObjectAssignment",
-      "name": "Actividad Principal",
-      "id": "shape_7060",
-      "x": 590,
+      "id": "shape_7895",
+      "x": 527,
       "y": 222,
       "pickedColor": "#1e88e5"
     },
     {
+      "type": "domainStory:workObjectAssessment",
+      "name": "numeroEDT, nombre y nro días",
+      "id": "shape_8090",
+      "x": -160,
+      "y": 54
+    },
+    {
       "type": "domainStory:workObjectAssignment",
       "name": "Actividad Principal",
-      "id": "shape_7437",
-      "x": 373,
-      "y": 341,
+      "id": "shape_8209",
+      "x": 368,
+      "y": 54,
       "pickedColor": "#1e88e5"
-    },
-    {
-      "type": "domainStory:workObjectCalendar",
-      "name": "Fechas Planificadas",
-      "id": "shape_8171",
-      "x": 373,
-      "y": 222
-    },
-    {
-      "type": "domainStory:actorGroup",
-      "name": "Recurso",
-      "id": "shape_8949",
-      "x": 590,
-      "y": 341
     },
     {
       "type": "domainStory:actorPerson",
       "name": "Gerente de Proyecto",
       "id": "shape_9077",
-      "x": 167,
-      "y": 174
-    },
-    {
-      "type": "domainStory:workObjectView-List",
-      "name": "Proyecto",
-      "id": "shape_9847",
-      "x": 590,
-      "y": 0
+      "x": 174,
+      "y": 139
     },
     {
       "info": ""

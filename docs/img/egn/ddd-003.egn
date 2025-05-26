@@ -25,401 +25,263 @@
   "dst": [
     {
       "type": "domainStory:activity",
-      "name": "asigna",
-      "id": "connection_2004",
-      "pickedColor": "black",
-      "number": 4,
-      "waypoints": [
-        {
-          "original": {
-            "x": 1074,
-            "y": 373
-          },
-          "x": 1116,
-          "y": 373
-        },
-        {
-          "original": {
-            "x": 1317,
-            "y": 372
-          },
-          "x": 1279,
-          "y": 372
-        }
-      ],
-      "source": "shape_1176",
-      "target": "shape_4783",
-      "multipleNumberAllowed": false
-    },
-    {
-      "type": "domainStory:activity",
-      "name": "de",
-      "id": "connection_2289",
-      "pickedColor": "black",
-      "number": null,
-      "waypoints": [
-        {
-          "original": {
-            "x": 1317,
-            "y": 522
-          },
-          "x": 1360,
-          "y": 522
-        },
-        {
-          "original": {
-            "x": 1515,
-            "y": 522
-          },
-          "x": 1477,
-          "y": 522
-        }
-      ],
-      "source": "shape_0819",
-      "target": "shape_7441",
-      "multipleNumberAllowed": false
-    },
-    {
-      "type": "domainStory:activity",
-      "name": "entrega",
-      "id": "connection_2944",
-      "pickedColor": "black",
-      "number": 2,
-      "waypoints": [
-        {
-          "original": {
-            "x": 526,
-            "y": 299
-          },
-          "x": 567,
-          "y": 310
-        },
-        {
-          "original": {
-            "x": 800,
-            "y": 372
-          },
-          "x": 762,
-          "y": 362
-        }
-      ],
-      "source": "shape_9771",
-      "target": "shape_6585",
-      "multipleNumberAllowed": false
-    },
-    {
-      "type": "domainStory:activity",
-      "name": "como",
-      "id": "connection_3650",
-      "pickedColor": "black",
-      "number": null,
-      "waypoints": [
-        {
-          "original": {
-            "x": 1515,
-            "y": 522
-          },
-          "x": 1558,
-          "y": 522
-        },
-        {
-          "original": {
-            "x": 1709,
-            "y": 522
-          },
-          "x": 1671,
-          "y": 522
-        }
-      ],
-      "source": "shape_7441",
-      "target": "shape_3956",
-      "multipleNumberAllowed": false
-    },
-    {
-      "type": "domainStory:activity",
-      "name": "registra",
-      "id": "connection_3980",
-      "pickedColor": "black",
-      "number": 3,
-      "waypoints": [
-        {
-          "original": {
-            "x": 1074,
-            "y": 373
-          },
-          "x": 1100,
-          "y": 356
-        },
-        {
-          "original": {
-            "x": 1317,
-            "y": 216
-          },
-          "x": 1279,
-          "y": 241
-        }
-      ],
-      "source": "shape_1176",
-      "target": "shape_4502",
-      "multipleNumberAllowed": false
-    },
-    {
-      "type": "domainStory:activity",
-      "name": "marca",
-      "id": "connection_5316",
-      "pickedColor": "black",
-      "number": 5,
-      "waypoints": [
-        {
-          "original": {
-            "x": 1074,
-            "y": 373
-          },
-          "x": 1106,
-          "y": 393
-        },
-        {
-          "original": {
-            "x": 1317,
-            "y": 522
-          },
-          "x": 1279,
-          "y": 499
-        }
-      ],
-      "source": "shape_1176",
-      "target": "shape_0819",
-      "multipleNumberAllowed": false
-    },
-    {
-      "type": "domainStory:activity",
-      "name": "en",
-      "id": "connection_5780",
-      "pickedColor": "black",
-      "number": null,
-      "waypoints": [
-        {
-          "original": {
-            "x": 1317,
-            "y": 216
-          },
-          "x": 1360,
-          "y": 216
-        },
-        {
-          "original": {
-            "x": 1515,
-            "y": 216
-          },
-          "x": 1477,
-          "y": 216
-        }
-      ],
-      "source": "shape_4502",
-      "target": "shape_5125",
-      "multipleNumberAllowed": false
-    },
-    {
-      "type": "domainStory:activity",
-      "name": "para",
-      "id": "connection_6269",
-      "pickedColor": "black",
-      "number": null,
-      "waypoints": [
-        {
-          "original": {
-            "x": 800,
-            "y": 216
-          },
-          "x": 843,
-          "y": 216
-        },
-        {
-          "original": {
-            "x": 1064,
-            "y": 216
-          },
-          "x": 1026,
-          "y": 216
-        }
-      ],
-      "source": "shape_2054",
-      "target": "shape_7139",
-      "multipleNumberAllowed": false
-    },
-    {
-      "type": "domainStory:activity",
-      "name": "define",
-      "id": "connection_8215",
+      "name": "Activa",
+      "id": "connection_1075",
       "pickedColor": "black",
       "number": 1,
       "waypoints": [
         {
           "original": {
-            "x": 526,
-            "y": 299
+            "x": 633,
+            "y": 361
           },
-          "x": 559,
-          "y": 289
+          "x": 595,
+          "y": 343
         },
         {
           "original": {
-            "x": 800,
-            "y": 216
+            "x": 455,
+            "y": 279
           },
-          "x": 762,
-          "y": 228
+          "x": 490,
+          "y": 295
         }
       ],
-      "source": "shape_9771",
-      "target": "shape_2054",
+      "source": "shape_5713",
+      "target": "shape_7382",
       "multipleNumberAllowed": false
     },
     {
       "type": "domainStory:activity",
-      "name": "a",
-      "id": "connection_9702",
+      "name": "completa",
+      "id": "connection_1132",
+      "pickedColor": "black",
+      "number": 2,
+      "waypoints": [
+        {
+          "original": {
+            "x": 633,
+            "y": 361
+          },
+          "x": 595,
+          "y": 377
+        },
+        {
+          "original": {
+            "x": 455,
+            "y": 438
+          },
+          "x": 485,
+          "y": 425
+        }
+      ],
+      "source": "shape_5713",
+      "target": "shape_9586",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "marca",
+      "id": "connection_1493",
       "pickedColor": "black",
       "number": null,
       "waypoints": [
         {
           "original": {
-            "x": 1317,
-            "y": 372
+            "x": 455,
+            "y": 438
           },
-          "x": 1360,
-          "y": 372
+          "x": 417,
+          "y": 438
         },
         {
           "original": {
-            "x": 1515,
-            "y": 372
+            "x": 293,
+            "y": 438
           },
-          "x": 1477,
-          "y": 372
+          "x": 336,
+          "y": 438
         }
       ],
-      "source": "shape_4783",
-      "target": "shape_6560",
+      "source": "shape_9586",
+      "target": "shape_1086",
       "multipleNumberAllowed": false
     },
     {
       "type": "domainStory:activity",
-      "name": "a",
-      "id": "connection_9958",
+      "name": "marca",
+      "id": "connection_3793",
       "pickedColor": "black",
       "number": null,
       "waypoints": [
         {
           "original": {
-            "x": 800,
-            "y": 372
+            "x": 455,
+            "y": 279
           },
-          "x": 842,
-          "y": 372
+          "x": 417,
+          "y": 279
         },
         {
           "original": {
-            "x": 1048,
-            "y": 370
+            "x": 293,
+            "y": 280
           },
-          "x": 1036,
-          "y": 370
+          "x": 335,
+          "y": 280
         }
       ],
-      "source": "shape_6585",
-      "target": "shape_1176",
+      "source": "shape_7382",
+      "target": "shape_3516",
       "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "como",
+      "id": "connection_3831",
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": 293,
+            "y": 438
+          },
+          "x": 255,
+          "y": 438
+        },
+        {
+          "original": {
+            "x": 130,
+            "y": 438
+          },
+          "x": 173,
+          "y": 438
+        }
+      ],
+      "source": "shape_1086",
+      "target": "shape_2519",
+      "multipleNumberAllowed": false
+    },
+    {
+      "type": "domainStory:activity",
+      "name": "finaliza",
+      "id": "connection_4765",
+      "pickedColor": "black",
+      "number": 3,
+      "waypoints": [
+        {
+          "original": {
+            "x": 313,
+            "y": 587
+          },
+          "x": 356,
+          "y": 587
+        },
+        {
+          "original": {
+            "x": 547,
+            "y": 587
+          },
+          "x": 509,
+          "y": 587
+        }
+      ],
+      "source": "shape_6753",
+      "target": "shape_0095",
+      "multipleNumberAllowed": false
+    },
+    {
+      "name": "como",
+      "id": "connection_9023",
+      "type": "domainStory:activity",
+      "pickedColor": "black",
+      "number": null,
+      "waypoints": [
+        {
+          "original": {
+            "x": 293,
+            "y": 280
+          },
+          "x": 255,
+          "y": 280
+        },
+        {
+          "original": {
+            "x": 130,
+            "y": 280
+          },
+          "x": 173,
+          "y": 280
+        }
+      ],
+      "source": "shape_3516",
+      "target": "shape_4412"
+    },
+    {
+      "type": "domainStory:workObjectView-List",
+      "name": "Proyecto",
+      "id": "shape_0095",
+      "x": 509,
+      "y": 549
     },
     {
       "type": "domainStory:workObjectWrench",
       "name": "Estado",
-      "id": "shape_0819",
-      "x": 1279,
-      "y": 484
-    },
-    {
-      "type": "domainStory:actorPerson",
-      "name": "Gerente de Portafolio",
-      "id": "shape_1176",
-      "x": 1036,
-      "y": 335
-    },
-    {
-      "type": "domainStory:workObjectAssessment",
-      "name": "Metas y Presupuesto",
-      "id": "shape_2054",
-      "x": 762,
-      "y": 178,
-      "pickedColor": "#1e88e5"
+      "id": "shape_1086",
+      "x": 255,
+      "y": 400
     },
     {
       "type": "domainStory:workObjectWrench",
-      "name": "PLANIFICADO",
-      "id": "shape_3956",
-      "x": 1671,
-      "y": 484
+      "name": "COMPLETADA",
+      "id": "shape_2519",
+      "x": 92,
+      "y": 400
     },
     {
-      "type": "domainStory:workObjectView-List",
-      "name": "Proyecto",
-      "id": "shape_4502",
-      "x": 1279,
-      "y": 178,
-      "pickedColor": "#43a047"
+      "name": "Estado",
+      "id": "shape_3516",
+      "type": "domainStory:workObjectWrench",
+      "x": 255,
+      "y": 242
     },
     {
-      "type": "domainStory:workObjectAssessment",
-      "name": "Nombre, Horas y Presupuesto",
-      "id": "shape_4783",
-      "x": 1279,
-      "y": 334
+      "name": "EN_ EJECUCION",
+      "id": "shape_4412",
+      "type": "domainStory:workObjectWrench",
+      "x": 92,
+      "y": 242
     },
     {
-      "type": "domainStory:workObjectFolder",
-      "name": "Portafolio",
-      "id": "shape_5125",
-      "x": 1477,
-      "y": 178
+      "type": "domainStory:actorGroup",
+      "name": "Equipo Desarrollo",
+      "id": "shape_5713",
+      "x": 595,
+      "y": 323
     },
     {
-      "type": "domainStory:workObjectView-List",
-      "name": "Proyecto",
-      "id": "shape_6560",
-      "x": 1477,
-      "y": 334,
-      "pickedColor": "#43a047"
+      "type": "domainStory:actorGroup",
+      "name": "Gerente De Proyecto",
+      "id": "shape_6753",
+      "x": 275,
+      "y": 549
     },
     {
-      "type": "domainStory:workObjectAssessment",
-      "name": "Metas y Presupuesto",
-      "id": "shape_6585",
-      "x": 762,
-      "y": 334,
+      "type": "domainStory:workObjectAssignment",
+      "name": "Actividad",
+      "id": "shape_7382",
+      "x": 417,
+      "y": 241,
       "pickedColor": "#1e88e5"
     },
     {
-      "type": "domainStory:workObjectView-List",
-      "name": "Proyecto",
-      "id": "shape_7139",
-      "x": 1026,
-      "y": 178,
-      "pickedColor": "#43a047"
-    },
-    {
-      "type": "domainStory:workObjectView-List",
-      "name": "Proyecto",
-      "id": "shape_7441",
-      "x": 1477,
-      "y": 484,
-      "pickedColor": "#43a047"
-    },
-    {
-      "type": "domainStory:actorBusiness",
-      "name": "Organización",
-      "id": "shape_9771",
-      "x": 488,
-      "y": 261
+      "type": "domainStory:workObjectAssignment",
+      "name": "Actividad",
+      "id": "shape_9586",
+      "x": 417,
+      "y": 400,
+      "pickedColor": "#1e88e5"
     },
     {
       "info": ""
