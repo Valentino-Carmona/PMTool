@@ -26,21 +26,7 @@ public class GerenteProyecto {
         return new Actividad(numeroEDT, nombre, duracionDias);
     }
 
-    public void configurarDependencia(Actividad actividad, Actividad predecesora, String tipo, int leadLag) {
-        switch (tipo) {
-            case "FS":
-                actividad.setDependencia(new FinishToStart(predecesora, leadLag));
-                break;
-            case "FF":
-                actividad.setDependencia(new FinishToFinish(predecesora, leadLag));
-            case "SS":
-                actividad.setDependencia(new StartToStart(predecesora, leadLag));
-                break;
-            case "SF":
-                actividad.setDependencia(new StartToFinish(predecesora, leadLag));
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo de dependencia no soportado: " + tipo);
-        }
+    public void configurarDependencia(Actividad actividad, Actividad predecesora, int leadLag) {
+        actividad.setDependencia(new FinishToStart(predecesora, leadLag));
     }
 }

@@ -14,7 +14,6 @@ public class Main {
         // Crear un proyecto
         Proyecto proyecto = gerentePortafolio.crearProyecto("Proyecto Ejemplo", 500, 100000);
         LocalDate fechaInicioProyecto = LocalDate.of(2025, 9, 1);
-        gerenteProyecto.planificarProyecto(proyecto, fechaInicioProyecto);
         
         // Crear actividades
         Actividad planificacion = gerenteProyecto.crearActividad(proyecto, "1", "Planificación del proyecto", 0);
@@ -39,19 +38,20 @@ public class Main {
         cierre.agregarSubactividad(capacitacion);
 
         // Establecer dependencias
-        gerenteProyecto.configurarDependencia(disenoUI, definicionReq, "FS", 0); // Diseño depende de Definir requisitos
-        gerenteProyecto.configurarDependencia(implementacion, disenoUI, "FS", 0); // Implementación depende de Diseño
-        gerenteProyecto.configurarDependencia(entorno, definicionReq, "FS", 2); // Entorno depende de Definir requisitos con 2 días de retraso
-        gerenteProyecto.configurarDependencia(despliegue, entorno, "FS", 0); // Despliegue depende de Entorno
-        gerenteProyecto.configurarDependencia(capacitacion, despliegue, "FS", -1); // Capacitación depende de Despliegue con 1 día de adelanto
+        gerenteProyecto.configurarDependencia(disenoUI, definicionReq,  0); // Diseño depende de Definir requisitos
+        gerenteProyecto.configurarDependencia(implementacion, disenoUI,  0); // Implementación depende de Diseño
+        gerenteProyecto.configurarDependencia(entorno, definicionReq,  2); // Entorno depende de Definir requisitos con 2 días de retraso
+        gerenteProyecto.configurarDependencia(despliegue, entorno,  0); // Despliegue depende de Entorno
+        gerenteProyecto.configurarDependencia(capacitacion, despliegue,  -1); // Capacitación depende de Despliegue con 1 día de adelanto
 
-        // Recalcular fechas tras agregar dependencias
-        for (Actividad actividad : proyecto.getActividades()) {
-            actividad.calcularFechasPlanificadas(fechaInicioProyecto);
-        }
+        // Planificar el proyecto después de definir actividades y dependencias
+        gerenteProyecto.planificarProyecto(proyecto, fechaInicioProyecto);
 
         // Mostrar resultados
         System.out.println("Proyecto: " + proyecto);
+        System.out.println("Fecha de inicio del proyecto: " + proyecto.getFechaInicioPlanificada());
+        System.out.println("Fecha de fin del proyecto: " + proyecto.getFechaFinPlanificada());
+        
         for (Actividad actividad : proyecto.getActividades()) {
             mostrarActividadConJerarquia(actividad, "");
         }
