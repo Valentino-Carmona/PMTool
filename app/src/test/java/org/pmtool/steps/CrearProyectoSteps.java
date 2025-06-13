@@ -1,5 +1,6 @@
 package org.pmtool.steps;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -38,6 +39,12 @@ public class CrearProyectoSteps {
         assertTrue(proyecto.isPlanificado());
         assertEquals(100, proyecto.getTotalHorasEstimadas());
         assertEquals(50000.0, proyecto.getPresupuesto());
+    }
+
+    @And("el proyecto se crea con un identificador único")
+    public void elProyectoSeCreaConUnIdentificadorUnico() {
+        assertNotNull(proyecto);
+        assertTrue(proyecto.getNumero() > 1);
     }
 
     @Given("ya existe un proyecto con el nombre {string}")

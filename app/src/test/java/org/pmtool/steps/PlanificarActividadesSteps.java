@@ -11,6 +11,8 @@ import io.cucumber.java.en.When;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+
 public class PlanificarActividadesSteps {
     private Proyecto proyecto;
     private Actividad actividad;
@@ -24,10 +26,10 @@ public class PlanificarActividadesSteps {
         gerenteProyecto = new GerenteProyecto();
     }
 
-    @When("el Gerente de Proyecto define una nueva actividad con nombre y fechas planificadas")
-    public void elGerenteDeProyectoDefineUnaNuevaActividadConNombreYFechasPlanificadas() {
+    @When("el Gerente de Proyecto define una nueva actividad con nombre {string} y duración {int} días")
+    public void elGerenteDeProyectoDefineUnaNuevaActividadConNombreYDuracionDias(String nombre, int duracion) {
         try {
-            actividad = gerenteProyecto.crearActividad(proyecto, "1", "Nueva Actividad", 5);
+            actividad = gerenteProyecto.crearActividad(proyecto, "1", nombre, duracion);
             proyecto.agregarActividad(actividad);
         } catch (Exception e) {
             excepcion = e;
@@ -88,5 +90,42 @@ public class PlanificarActividadesSteps {
     public void seInformaUnMensajeIndicandoQueNoSePuedenAgregarActividadesAProyectosFinalizados() {
         assertNotNull(excepcion);
         assertEquals("No se pueden agregar actividades a un proyecto finalizado", excepcion.getMessage());
+    }
+
+    @When("el gerente de proyecto planifica el proyecto con fecha de inicio {string}")
+    public void elGerenteDeProyectoPlanificaElProyectoConFechaDeInicio(LocalDate fechaInicio) {
+        gerenteProyecto.planificarProyecto(proyecto, fechaInicio);
+    }
+
+    @Then("las fechas de inicio y fin de todas las actividades se calculan automáticamente")
+    public void lasFechasDeInicioYFinDeTodasLasActividadesSeCalculanAutomaticamente() {
+        for (Actividad act : proyecto.getActividades()) {
+            assertNotNull(act.getFechaInicioPlanificada());
+            assertNotNull(act.getFechaFinPlanificada());
+        }
+    }
+
+    @And("la fecha de fin del proyecto es la máxima fecha de fin de las actividades")
+    public void laFechaDeFinDelProyectoEsLaMaximaFechaDeFinDeLasActividades() {
+        LocalDate maxFechaFin = proyecto.getActividades().stream()
+                .map(Actividad::getFechaFinPlanificada)
+                .max(LocalDate::compareTo)
+                .orElse(null);
+        assertEquals(maxFechaFin, proyecto.getFechaFinPlanificada());
+    }
+
+    @When("el gerente de proyecto intenta planificar el proyecto con fecha de inicio nula")
+    public void elGerenteDeProyectoIntentaPlanificarElProyectoConFechaDeInicioNula() {
+        try {
+            gerenteProyecto.planificarProyecto(proyecto, null);
+        } catch (Exception e) {
+            excepcion = e;
+        }
+    }
+
+    @Then("se lanza un error indicando la fecha de inicio no puede ser nula")
+    public void seLanzaUnErrorIndicandoLaFechaDeInicioNoPuedeSerNula() {
+        assertNotNull(excepcion);
+        assertEquals("La fecha de inicio no puede ser nula", excepcion.getMessage());
     }
 }
