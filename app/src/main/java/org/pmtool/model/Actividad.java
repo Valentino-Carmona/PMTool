@@ -75,14 +75,18 @@ public class Actividad {
         this.dependencia = dependencia;
     }
 
-    public void agregarSubactividad(Actividad subactividad) {
-        if (EstadoActividad.COMPLETADA.equals(estado)) {
+    public Actividad agregarSubactividad(String nombre, int duracionDias) {
+        if (EstadoActividad.COMPLETADA.equals(this.estado)) {
             throw new IllegalStateException("No se pueden agregar subactividades a una actividad completada");
+            
+        } else if (duracionDias < 0) {
+            throw new IllegalArgumentException("La duración de la subactividad debe ser mayor que cero.");
         }
-        Objects.requireNonNull(subactividad, "La subactividad no puede ser nula");
-        int subNivel = subactividades.size() + 1;
-        subactividad.setNumeroEDT(this.numeroEDT + "." + subNivel);
+        
+        int subNivel = this.subactividades.size() + 1;
+        Actividad subactividad = new Actividad((this.numeroEDT + "." + subNivel), nombre, duracionDias);
         subactividades.add(subactividad);
+        return subactividad;
     }
 
     public void activar() {
@@ -127,12 +131,25 @@ public class Actividad {
         return this.fechaFinPlanificada.plusDays(duracionDias);
     }
 
-    public String getNumeroEDT() {
-        return numeroEDT;
+    public void setFechaInicioReal(LocalDate fechaInicioReal) {
+        if (fechaInicioReal == null) {
+            throw new IllegalArgumentException("La fecha de inicio real no puede ser nula.");
+        }
+        this.fechaInicioReal = fechaInicioReal;
     }
 
-    private void setNumeroEDT(String numeroEDT) {
-        this.numeroEDT = numeroEDT;
+    public void setFechaFinReal(LocalDate fechaFinReal) {
+        if (fechaFinReal == null) {
+            throw new IllegalArgumentException("La fecha de fin real no puede ser nula.");
+        }
+        if (fechaFinReal != null && fechaFinReal.isBefore(fechaInicioReal)) {
+            throw new IllegalArgumentException("La fecha de fin real no puede ser anterior a la fecha de inicio real.");
+        }
+        this.fechaFinReal = fechaFinReal;
+    }
+
+    public String getNumeroEDT() {
+        return numeroEDT;
     }
 
     public List<Actividad> getSubactividades() {
@@ -151,32 +168,16 @@ public class Actividad {
         return fechaInicioPlanificada;
     }
 
-    public void setFechaInicioPlanificada(LocalDate fechaInicioPlanificada) {
-        this.fechaInicioPlanificada = fechaInicioPlanificada;
-    }
-
     public LocalDate getFechaFinPlanificada() {
         return fechaFinPlanificada;
-    }
-
-    public void setFechaFinPlanificada(LocalDate fechaFinPlanificada) {
-        this.fechaFinPlanificada = fechaFinPlanificada;
     }
 
     public LocalDate getFechaInicioReal() {
         return fechaInicioReal;
     }
 
-    public void setFechaInicioReal(LocalDate fechaInicioReal) {
-        this.fechaInicioReal = fechaInicioReal;
-    }
-
     public LocalDate getFechaFinReal() {
         return fechaFinReal;
-    }
-
-    public void setFechaFinReal(LocalDate fechaFinReal) {
-        this.fechaFinReal = fechaFinReal;
     }
 
     public int getDuracionDias() {

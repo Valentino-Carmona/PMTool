@@ -14,16 +14,12 @@ public class GerenteProyecto {
         proyecto.finalizar();
     }
 
-    public Actividad crearActividad(Proyecto proyecto, String numeroPadre, String nombre, int duracionDias) {
-        String numeroEDT;
-        int size = proyecto.getActividades().size();
-        if (size == 0) {
-            numeroEDT = numeroPadre;
-        }
-        else {
-            numeroEDT = numeroPadre + "." + (size + 1);
-        }
-        return new Actividad(numeroEDT, nombre, duracionDias);
+    public Actividad crearActividad(Proyecto proyecto, String nombre, int duracionDias) {
+        return proyecto.agregarActividad(nombre, duracionDias);
+    } 
+
+    public Actividad crearSubActividad(Actividad actividad, String nombre, int duracionDias) {
+        return actividad.agregarSubactividad(nombre, duracionDias);
     }
 
     public void configurarDependencia(Actividad actividad, Actividad predecesora, int leadLag) {

@@ -75,11 +75,18 @@ public class Proyecto {
         return this.nombre.equals(nombre);
     }
 
-    public void agregarActividad(Actividad actividad) {
+    public Actividad agregarActividad(String nombre, int duracionDias) {
         if (this.estado == EstadoProyecto.FINALIZADO) {
             throw new IllegalStateException("No se pueden agregar actividades a un proyecto finalizado");
+        
+        } else if (duracionDias < 0) {
+            throw new IllegalArgumentException("La duración de la actividad debe ser mayor que cero.");
         }
+
+        int nivel = this.actividades.size() + 1;
+        Actividad actividad = new Actividad(String.valueOf(nivel), nombre, duracionDias);
         actividades.add(actividad);
+        return actividad;
     }
 
     public List<Actividad> getActividades() {
@@ -172,6 +179,8 @@ public class Proyecto {
                 "numero=" + numero +
                 ", nombre='" + nombre + '\'' +
                 ", estado='" + estado + '\'' +
+                ", fechaInicioPlanificada=" + fechaInicioPlanificada + '\'' +
+                ", fechaFinPlanificada=" + fechaFinPlanificada + '\'' +
                 '}';
     }
 }

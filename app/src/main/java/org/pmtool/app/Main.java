@@ -15,27 +15,18 @@ public class Main {
         Proyecto proyecto = gerentePortafolio.crearProyecto("Proyecto Ejemplo", 500, 100000);
         LocalDate fechaInicioProyecto = LocalDate.of(2025, 9, 1);
         
-        // Crear actividades
-        Actividad planificacion = gerenteProyecto.crearActividad(proyecto, "1", "Planificación del proyecto", 0);
-        Actividad definicionReq = gerenteProyecto.crearActividad(proyecto, "1.1", "Definir requisitos", 3);
-        Actividad disenoUI = gerenteProyecto.crearActividad(proyecto, "1.2", "Diseñar la UI/UX", 2);
-        Actividad desarrollo = gerenteProyecto.crearActividad(proyecto, "2", "Desarrollo", 0);
-        Actividad implementacion = gerenteProyecto.crearActividad(proyecto, "2.1", "Implementar funcionalidad", 5);
-        Actividad entorno = gerenteProyecto.crearActividad(proyecto, "2.2", "Preparar entorno de despliegue", 2);
-        Actividad cierre = gerenteProyecto.crearActividad(proyecto, "3", "Cierre del proyecto", 0);
-        Actividad despliegue = gerenteProyecto.crearActividad(proyecto, "3.1", "Desplegar aplicación", 1);
-        Actividad capacitacion = gerenteProyecto.crearActividad(proyecto, "3.2", "Capacitar a usuarios", 2);
+        // Crear actividades y subactividades
+        Actividad planificacion = gerenteProyecto.crearActividad(proyecto, "Planificación del proyecto", 0);
+        Actividad definicionReq = gerenteProyecto.crearSubActividad(planificacion, "Definir requisitos", 3);
+        Actividad disenoUI = gerenteProyecto.crearSubActividad(planificacion, "Diseñar la UI/UX", 2);
 
-        // Establecer jerarquía EDT
-        proyecto.agregarActividad(planificacion);
-        planificacion.agregarSubactividad(definicionReq);
-        planificacion.agregarSubactividad(disenoUI);
-        proyecto.agregarActividad(desarrollo);
-        desarrollo.agregarSubactividad(implementacion);
-        desarrollo.agregarSubactividad(entorno);
-        proyecto.agregarActividad(cierre);
-        cierre.agregarSubactividad(despliegue);
-        cierre.agregarSubactividad(capacitacion);
+        Actividad desarrollo = gerenteProyecto.crearActividad(proyecto, "Desarrollo", 0);
+        Actividad implementacion = gerenteProyecto.crearSubActividad(desarrollo, "Implementar funcionalidad", 5);
+        Actividad entorno = gerenteProyecto.crearSubActividad(desarrollo, "Preparar entorno de despliegue", 2);
+        
+        Actividad cierre = gerenteProyecto.crearActividad(proyecto, "Cierre del proyecto", 0);
+        Actividad despliegue = gerenteProyecto.crearSubActividad(cierre, "Desplegar aplicación", 1);
+        Actividad capacitacion = gerenteProyecto.crearSubActividad(cierre, "Capacitar a usuarios", 2);
 
         // Establecer dependencias
         gerenteProyecto.configurarDependencia(disenoUI, definicionReq,  0); // Diseño depende de Definir requisitos
@@ -49,8 +40,8 @@ public class Main {
 
         // Mostrar resultados
         System.out.println("Proyecto: " + proyecto);
-        System.out.println("Fecha de inicio del proyecto: " + proyecto.getFechaInicioPlanificada());
-        System.out.println("Fecha de fin del proyecto: " + proyecto.getFechaFinPlanificada());
+        // System.out.println("Fecha de inicio del proyecto: " + proyecto.getFechaInicioPlanificada());
+        // System.out.println("Fecha de fin del proyecto: " + proyecto.getFechaFinPlanificada());
         
         for (Actividad actividad : proyecto.getActividades()) {
             mostrarActividadConJerarquia(actividad, "");
