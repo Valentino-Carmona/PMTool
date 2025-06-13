@@ -1,30 +1,45 @@
 package org.pmtool.steps;
 
+import org.pmtool.manager.GerenteProyecto;
 import org.pmtool.model.Actividad;
+import org.pmtool.model.Proyecto;
 import org.pmtool.model.Actividad.EstadoActividad;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AgregarSubactividadSteps {
+    private GerenteProyecto gerenteProyecto;
+    private Proyecto proyecto;
     private Actividad actividadPadre;
     private Actividad subactividad;
     private Exception excepcion;
 
-    @Given("existe una actividad planificada en un proyecto")
-    public void existeUnaActividadPlanificadaEnUnProyecto() {
-        actividadPadre = new Actividad("1", "Actividad Padre", 5);
+    @Before
+    public void setup() {
+        gerenteProyecto = new GerenteProyecto();
+        proyecto = new Proyecto("Proyecto Ejemplo", 500, 100000);
+        actividadPadre = null;
+        subactividad = null;
+        excepcion = null;
+    }
+
+    @Given("existe una actividad en un proyecto")
+    public void existeUnaActividadEnUnProyecto() {
+        actividadPadre = gerenteProyecto.crearActividad(proyecto, "Actividad Padre", 5);
         assertEquals(EstadoActividad.PLANIFICADA, actividadPadre.getEstado());
     }
 
-    @When("el Gerente de Proyecto agrega una subactividad con nombre y fechas planificadas")
-    public void elGerenteDeProyectoAgregaUnaSubactividadConNombreYFechasPlanificadas() {
-        subactividad = new Actividad("1.1", "Subactividad", 3);
-        actividadPadre.agregarSubactividad(subactividad);
+    @When("el Gerente de Proyecto agrega una subactividad con nombre y dias estimados")
+    public void elGerenteDeProyectoAgregaUnaSubactividadConNombreYDiasEstimados() {
+        subactividad = gerenteProyecto.crearSubActividad(actividadPadre, "Subactividad", 3);
+        assertNotNull(subactividad);
     }
 
     @Then("la subactividad se registra con un código único")
@@ -46,8 +61,7 @@ public class AgregarSubactividadSteps {
     @When("el Gerente de Proyecto intenta agregar una subactividad sin nombre")
     public void elGerenteDeProyectoIntentaAgregarUnaSubactividadSinNombre() {
         try {
-            subactividad = new Actividad("1.2", null, 3);
-            actividadPadre.agregarSubactividad(subactividad);
+            gerenteProyecto.crearSubActividad(actividadPadre, null, 3);
         } catch (Exception e) {
             excepcion = e;
         }
@@ -66,7 +80,7 @@ public class AgregarSubactividadSteps {
 
     @Given("existe una actividad completada en un proyecto")
     public void existeUnaActividadCompletadaEnUnProyecto() {
-        actividadPadre = new Actividad("1", "Actividad Completada", 5);
+        actividadPadre = gerenteProyecto.crearActividad(proyecto, "Actividad Completada", 5);
         actividadPadre.activar();
         actividadPadre.desactivar();
         assertEquals(EstadoActividad.COMPLETADA, actividadPadre.getEstado());
@@ -75,8 +89,7 @@ public class AgregarSubactividadSteps {
     @When("el Gerente de Proyecto intenta agregar una subactividad")
     public void elGerenteDeProyectoIntentaAgregarUnaSubactividad() {
         try {
-            subactividad = new Actividad("1.1", "Subactividad", 3);
-            actividadPadre.agregarSubactividad(subactividad);
+            gerenteProyecto.crearSubActividad(actividadPadre, "Subactividad", 3);
         } catch (Exception e) {
             excepcion = e;
         }

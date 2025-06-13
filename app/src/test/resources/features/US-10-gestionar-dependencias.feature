@@ -29,3 +29,16 @@ Feature: Gestionar dependencias entre actividades
     Given existe un proyecto con una actividad A completada y otra actividad B planificada
     When el Gerente de Proyecto define una dependencia Fin-a-Comienzo desde A hacia B
     Then se muestra un mensaje de error indicando que no se pueden definir dependencias hacia actividades completadas
+
+  Scenario: Intentar agregar a una actividad una dependencia consigo misma
+    Given existe un proyecto con una actividad planificada
+    When el Gerente de Proyecto define una auto-referencia Fin-a-Comienzo
+    Then se muestra un mensaje de error indicando que no se pueden definir dependencias auto-referenciales
+    And la actividad no registra la dependencia
+
+  Scenario: Intentar agregar una dependencia ciclica
+    Given existe un proyecto con dos actividades planificadas A y B
+    When el Gerente de Proyecto define una dependencia Fin-a-Comienzo desde A hacia B
+    And el Gerente de Proyecto define una dependencia Fin-a-Comienzo desde B hacia A 
+    Then se muestra un mensaje de error indicando que no se pueden definir dependencias que generen ciclos
+    And no se registra la dependencia Fin-a-Comienzo desde B hacia A 

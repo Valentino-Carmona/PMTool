@@ -29,8 +29,7 @@ public class PlanificarActividadesSteps {
     @When("el Gerente de Proyecto define una nueva actividad con nombre {string} y duración {int} días")
     public void elGerenteDeProyectoDefineUnaNuevaActividadConNombreYDuracionDias(String nombre, int duracion) {
         try {
-            actividad = gerenteProyecto.crearActividad(proyecto, "1", nombre, duracion);
-            proyecto.agregarActividad(actividad);
+            actividad = gerenteProyecto.crearActividad(proyecto, nombre, duracion);
         } catch (Exception e) {
             excepcion = e;
         }
@@ -55,8 +54,7 @@ public class PlanificarActividadesSteps {
     @When("el Gerente de Proyecto intenta definir una nueva actividad sin nombre")
     public void elGerenteDeProyectoIntentaDefinirUnaNuevaActividadSinNombre() {
         try {
-            actividad = gerenteProyecto.crearActividad(proyecto, "2", null, 5);
-            proyecto.agregarActividad(actividad);
+            actividad = gerenteProyecto.crearActividad(proyecto, null, 5);
         } catch (Exception e) {
             excepcion = e;
         }
@@ -79,8 +77,7 @@ public class PlanificarActividadesSteps {
             if (proyecto.getEstado() == Proyecto.EstadoProyecto.FINALIZADO) {
                 throw new IllegalStateException("No se pueden agregar actividades a un proyecto finalizado");
             }
-            actividad = gerenteProyecto.crearActividad(proyecto, "3", "Actividad Finalizada", 5);
-            proyecto.agregarActividad(actividad);
+            actividad = gerenteProyecto.crearActividad(proyecto, "Actividad Finalizada", 5);
         } catch (Exception e) {
             excepcion = e;
         }

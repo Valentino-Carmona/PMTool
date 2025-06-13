@@ -32,16 +32,14 @@ public class GestionarDependenciasSteps {
 
     @Given("existe un proyecto con dos actividades planificadas A y B")
     public void existeProyectoConDosActividadesPlanificadasAB() {
-        actividadA = gerenteProyecto.crearActividad(proyecto, "1", "Actividad A", 0);
-        actividadB = gerenteProyecto.crearActividad(proyecto, "2", "Actividad B", 0);
-        proyecto.agregarActividad(actividadA);
-        proyecto.agregarActividad(actividadB);
+        actividadA = gerenteProyecto.crearActividad(proyecto, "Actividad A", 0);
+        actividadB = gerenteProyecto.crearActividad(proyecto, "Actividad B", 0);
     }
 
     @When("el Gerente de Proyecto define una dependencia Fin-a-Comienzo desde A hacia B")
     public void gerenteDefineDependenciaFinAComienzo() {
         try {
-            gerenteProyecto.configurarDependencia(actividadB, actividadA, "FS", 0);
+            gerenteProyecto.configurarDependencia(actividadB, actividadA, 0);
         } catch (Exception e) {
             excepcion = e;
         }
@@ -50,7 +48,7 @@ public class GestionarDependenciasSteps {
     @When("el Gerente de Proyecto define una dependencia Fin-a-Comienzo con un retraso de {int} días desde A hacia B")
     public void gerenteDefineDependenciaConRetraso(int dias) {
         try {
-            gerenteProyecto.configurarDependencia(actividadB, actividadA, "FS", dias);
+            gerenteProyecto.configurarDependencia(actividadB, actividadA, dias);
         } catch (Exception e) {
             excepcion = e;
         }
@@ -59,7 +57,7 @@ public class GestionarDependenciasSteps {
     @When("el Gerente de Proyecto define una dependencia Fin-a-Comienzo con un adelanto de {int} día desde A hacia B")
     public void elGerenteDeProyectoDefineDependenciaConAdelanto(int dias) {
         try {
-            gerenteProyecto.configurarDependencia(actividadB, actividadA, "FS", -dias);
+            gerenteProyecto.configurarDependencia(actividadB, actividadA, -dias);
         } catch (Exception e) {
             excepcion = e;
         }
@@ -96,10 +94,8 @@ public class GestionarDependenciasSteps {
 
     @Given("existe un proyecto con una actividad A completada y otra actividad B planificada")
     public void proyectoConActividadCompletadaYPlanificada() {
-        actividadA = gerenteProyecto.crearActividad(proyecto, "1", "Actividad A", 5);
-        actividadB = gerenteProyecto.crearActividad(proyecto, "2", "Actividad B", 3);
-        proyecto.agregarActividad(actividadA);
-        proyecto.agregarActividad(actividadB);
+        actividadA = gerenteProyecto.crearActividad(proyecto, "Actividad A", 5);
+        actividadB = gerenteProyecto.crearActividad(proyecto, "Actividad B", 3);
         gerenteProyecto.planificarProyecto(proyecto, LocalDate.of(2025, 4, 1));
         actividadB.activar();
         actividadB.desactivar();
@@ -111,5 +107,47 @@ public class GestionarDependenciasSteps {
     public void seMuestraErrorPorDependenciaCompletada() {
         assertNotNull(excepcion);
         assertEquals("No se puede definir una dependencia para una actividad completada.", excepcion.getMessage());
+    }
+
+    @When("el Gerente de Proyecto define una auto-referencia Fin-a-Comienzo")
+    public void gerenteDefineAutoReferenciaFinAComienzo() {
+        try {
+            gerenteProyecto.configurarDependencia(actividadA, actividadA, 0);
+        } catch (Exception e) {
+            excepcion = e;
+        }
+    }
+
+    @Then("se muestra un mensaje de error indicando que no se pueden definir dependencias auto-referenciales")
+    public void seMuestraErrorPorAutoReferencia() {
+        assertNotNull(excepcion);
+        assertEquals("La actividad no puede depender de sí misma", excepcion.getMessage());
+    }
+
+    @When("el Gerente de Proyecto define una dependencia Fin-a-Comienzo desde B hacia A")
+    public void gerenteDefineDependenciaFinAComienzoDesdeB() {
+        try {
+            gerenteProyecto.configurarDependencia(actividadA, actividadB, 0);
+        } catch (Exception e) {
+            excepcion = e;
+        }
+    }
+
+    @And("la actividad no registra la dependencia")
+    public void actividadNoRegistraDependencia() {
+        assertNull(actividadA.getDependencia());
+    }
+
+    @Then("se muestra un mensaje de error indicando que no se pueden definir dependencias que generen ciclos")
+    public void seMuestraErrorPorCiclo() {
+        assertNotNull(excepcion);
+        assertEquals("La dependencia genera un ciclo", excepcion.getMessage());
+    }
+
+    @And("no se registra la dependencia Fin-a-Comienzo desde B hacia A ")
+    public void noSeRegistraDependenciaFinAComienzoDesdeB() {
+        assertNull(actividadA.getDependencia());
+        assertNotNull(actividadB.getDependencia());
+        assertEquals(actividadA, actividadB.getDependencia().getPredecesora());
     }
 }

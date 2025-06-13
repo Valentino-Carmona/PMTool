@@ -36,8 +36,7 @@ public class ActividadTest {
 
     @Test
     void testAgregarSubactividad() {
-        Actividad subactividad = new Actividad("1.1.1", "Subactividad", 20);
-        actividad.agregarSubactividad(subactividad);
+        Actividad subactividad = actividad.agregarSubactividad("Subactividad", 20);
         
         Assertions.assertEquals(1, actividad.getSubactividades().size());
         Assertions.assertEquals("1.1.1", subactividad.getNumeroEDT());
@@ -84,10 +83,8 @@ public class ActividadTest {
         actividad.activar();
         actividad.desactivar();
 
-        Actividad subactividad = new Actividad("1.1.1", "Subactividad", 20);
-
         Assertions.assertThrows(IllegalStateException.class, () -> {
-            actividad.agregarSubactividad(subactividad);
+            actividad.agregarSubactividad("Subactividad", 20);
         });
     }
 

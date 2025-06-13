@@ -24,29 +24,27 @@ public class ProyectoTest {
 
     @Test
     void testAgregarActividad() {
-        Actividad actividad = new Actividad("1.1", "Actividad Test", 40);
-        proyecto.agregarActividad(actividad);
+        Actividad actividad = proyecto.agregarActividad("Actividad Test", 40);
         
         Assertions.assertEquals(1, proyecto.getActividades().size());
         Assertions.assertTrue(proyecto.getActividades().contains(actividad));
+        Assertions.assertEquals("1", actividad.getNumeroEDT());
     }
 
     @Test
     void testActividadJerarquia() {
-        Actividad actividad = new Actividad("1", "Actividad Principal", 40);
-        Actividad subactividad = new Actividad("1.1", "Subactividad", 20);
-        
-        actividad.agregarSubactividad(subactividad);
-        
+        Actividad actividad = proyecto.agregarActividad("Actividad Principal", 40);
+        Actividad subactividad = actividad.agregarSubactividad("Subactividad", 20);
+                
         Assertions.assertEquals(1, actividad.getSubactividades().size());
         Assertions.assertEquals("1.1", subactividad.getNumeroEDT());
+        Assertions.assertEquals(subactividad, actividad.getSubactividades().get(0));
     }
 
     @Test
     void testFinalizarProyecto() {
-        Actividad actividad = new Actividad("1.1", "Actividad Test", 40);
-        proyecto.agregarActividad(actividad);
-        proyecto.planificarProyecto(LocalDate.now());
+        Actividad actividad = proyecto.agregarActividad("Actividad Test", 40);
+        proyecto.planificarProyecto(LocalDate.of(2025, 9, 1));
         
         // Activar y desactivar la actividad
         actividad.activar();
@@ -60,8 +58,7 @@ public class ProyectoTest {
 
     @Test
     void testFinalizarProyectoConActividadIncompleta() {
-        Actividad actividad = new Actividad("1.1", "Actividad Test", 40);
-        proyecto.agregarActividad(actividad);
+        proyecto.agregarActividad("Actividad Test", 40);
         proyecto.planificarProyecto(LocalDate.now());
         
         // Intentar finalizar el proyecto sin completar la actividad
@@ -75,10 +72,8 @@ public class ProyectoTest {
         proyecto.planificarProyecto(LocalDate.now());
         proyecto.finalizar();
 
-        Actividad actividad = new Actividad("1.2", "Nueva Actividad", 20);
-
         Assertions.assertThrows(IllegalStateException.class, () -> {
-            proyecto.agregarActividad(actividad);
+            proyecto.agregarActividad("Nueva Actividad", 20);
         });
     }
 
@@ -92,8 +87,7 @@ public class ProyectoTest {
     @Test
     void testFinalizarProyectoSinActividades() {
         proyecto.planificarProyecto(LocalDate.now());
-        Actividad actividad = new Actividad("1.2", "Nueva Actividad", 20);
-        proyecto.agregarActividad(actividad);
+        proyecto.agregarActividad("Nueva Actividad", 20);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             proyecto.finalizar();

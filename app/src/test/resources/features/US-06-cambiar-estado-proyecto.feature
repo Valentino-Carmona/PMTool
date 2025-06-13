@@ -11,13 +11,13 @@ Feature: Cambio de estado del proyecto
 
   Scenario: Intento marcar como finalizado sin haber planificado el proyecto
     Given existe un proyecto en estado "PLANIFICADO"
-    When el Gerente de Proyecto intenta modificar el estado del proyecto a "FINALIZADO"
+    When el Gerente de Proyecto solicita finalizar el proyecto
     Then se informa un mensaje indicando que el proyecto debe estar en curso para poder finalizarlo
     And el proyecto mantiene el estado en "PLANIFICADO"
 
   Scenario: El proyecto se finaliza cuando todas las actividades están completadas
     Given existe un proyecto en estado "EN_CURSO"
-    And todas las actividades del proyecto están en estado "COMPLETADA"
+    And todas las actividades del proyecto están completadas
     When el Gerente de Proyecto solicita finalizar el proyecto
     Then el estado del proyecto cambia a "FINALIZADO"
     And se registra la fecha real de finalización del proyecto

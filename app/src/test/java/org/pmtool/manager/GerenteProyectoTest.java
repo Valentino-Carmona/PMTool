@@ -21,15 +21,13 @@ public class GerenteProyectoTest {
     void testPlanificarProyecto() {
         LocalDate inicio = LocalDate.of(2024, 1, 1);
         
-        gerente.planificarProyecto(proyecto, inicio);
-        // La planificación no debería lanzar excepción
-        
+        gerente.planificarProyecto(proyecto, inicio);        
         Assertions.assertEquals(Proyecto.EstadoProyecto.EN_CURSO, proyecto.getEstado());
     }
 
     @Test
     void testCrearActividad() {
-        Actividad actividad = gerente.crearActividad(proyecto, "1", "Nueva Actividad", 80);
+        Actividad actividad = proyecto.agregarActividad( "Nueva Actividad", 80);
         
         Assertions.assertNotNull(actividad);
         Assertions.assertEquals("1", actividad.getNumeroEDT());
@@ -38,28 +36,12 @@ public class GerenteProyectoTest {
 
     @Test
     void testConfigurarDependenciaConAdelanto() {
-        Actividad actividadA = gerente.crearActividad(proyecto, "1", "Actividad A", 5);
-        Actividad actividadB = gerente.crearActividad(proyecto, "2", "Actividad B", 3);
+        Actividad actividadA = proyecto.agregarActividad( "Actividad A", 5);
+        Actividad actividadB = proyecto.agregarActividad( "Actividad B", 3);
 
-        proyecto.agregarActividad(actividadA);
-        proyecto.agregarActividad(actividadB);
-
-        gerente.configurarDependencia(actividadB, actividadA, "FS", -1);
+        gerente.configurarDependencia(actividadB, actividadA, -1);
 
         Assertions.assertNotNull(actividadB.getDependencia());
         Assertions.assertEquals(-1, actividadB.getDependencia().getLeadLag());
     }
-
-    @Test
-    void testConfigurarDependenciaNoSoportada() {
-        Actividad actividadA = gerente.crearActividad(proyecto, "1", "Actividad A", 5);
-        Actividad actividadB = gerente.crearActividad(proyecto, "2", "Actividad B", 3);
-
-        proyecto.agregarActividad(actividadA);
-        proyecto.agregarActividad(actividadB);
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            gerente.configurarDependencia(actividadB, actividadA, "falsaDependencia", 0);
-        });
-}
 } 

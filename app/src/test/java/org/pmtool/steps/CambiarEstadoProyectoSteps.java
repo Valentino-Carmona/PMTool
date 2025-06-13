@@ -25,14 +25,13 @@ public class CambiarEstadoProyectoSteps {
     public void setup() {
         gerenteProyecto = new GerenteProyecto();
         proyecto = new Proyecto("Proyecto test", 100, 50000.0);
+        exception = null;
     }
 
     @Given("existe un proyecto en estado {string}")
     public void existeUnProyectoEnEstado(String estado) {
-        exception = null;
-
         if (estado.equals("EN_CURSO")) {
-            gerenteProyecto.planificarProyecto(proyecto, LocalDate.now());
+            gerenteProyecto.planificarProyecto(proyecto, LocalDate.of(2025, 9, 1));
 
         }
         assertEquals(EstadoProyecto.valueOf(estado), proyecto.getEstado());
@@ -40,21 +39,12 @@ public class CambiarEstadoProyectoSteps {
 
     @When("el Gerente de Proyecto suministra una fecha real de inicio")
     public void elGerenteDeProyectoSuministraUnaFechaRealDeInicio() {
-        gerenteProyecto.planificarProyecto(proyecto, LocalDate.now());
+        gerenteProyecto.planificarProyecto(proyecto, LocalDate.of(2025, 9, 1));
     }
 
     @Then("el estado del proyecto cambia a {string}")
     public void elEstadoDelProyectoCambiaA(String estado) {
         assertEquals(EstadoProyecto.valueOf(estado), proyecto.getEstado());
-    }
-
-    @When("el Gerente de Proyecto intenta modificar el estado del proyecto a {string}")
-    public void elGerenteDeProyectoIntentaModificarElEstadoDelProyectoA(String estado) {
-        try {
-            gerenteProyecto.finalizarProyecto(proyecto);
-        } catch (IllegalStateException e) {
-            exception = e;
-        }
     }
 
     @Then("se informa un mensaje indicando que el proyecto debe estar en curso para poder finalizarlo")
@@ -68,13 +58,9 @@ public class CambiarEstadoProyectoSteps {
         assertEquals(EstadoProyecto.valueOf(estado), proyecto.getEstado());
     }
 
-    @Given("todas las actividades del proyecto están en estado {string}")
-    public void todasLasActividadesDeUnProyectoEstanEnEstado(String estado) {
-        exception = null;
-
-        proyecto.agregarActividad(
-            gerenteProyecto.crearActividad(proyecto, "1", "NombreTest", 0)
-        );
+    @Given("todas las actividades del proyecto están completadas")
+    public void todasLasActividadesDelProyectoEstanCompletadas() {
+        gerenteProyecto.crearActividad(proyecto, "NombreTest", 0);
 
         for (Actividad actividad : proyecto.getActividades()) {
             actividad.activar();
@@ -98,11 +84,7 @@ public class CambiarEstadoProyectoSteps {
 
     @Given("al menos una actividad del proyecto no está en estado {string}")
     public void alMenosUnaActividadDelProyectoNoEstaEnEstado(String estado) {
-        exception = null;
-
-        proyecto.agregarActividad(
-            gerenteProyecto.crearActividad(proyecto, "1", "NombreTest", 0)
-        );
+        gerenteProyecto.crearActividad(proyecto, "NombreTest", 0);
 
         int contador = 0;
         for (Actividad actividad : proyecto.getActividades()) {

@@ -8,6 +8,10 @@ public class FinishToStart implements IDependencia {
     private final int leadLag;
 
     public FinishToStart(Actividad predecesora, int leadLag) {
+        if (predecesora == null) {
+            throw new IllegalArgumentException("La predecesora no puede ser nula");
+        }
+        
         this.predecesora = Objects.requireNonNull(predecesora, "La predecesora no puede ser nula");
         this.leadLag = leadLag;
     }
