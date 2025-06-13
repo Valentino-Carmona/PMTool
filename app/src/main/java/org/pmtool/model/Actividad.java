@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.pmtool.validation.ValidadorCiclosDependencias;
+
 public class Actividad {
     private String numeroEDT;
     private String nombre;
@@ -68,10 +70,9 @@ public class Actividad {
     public void setDependencia(IDependencia dependencia) {
         if (EstadoActividad.COMPLETADA.equals(estado)) {
             throw new IllegalStateException("No se puede definir una dependencia para una actividad completada.");
-
-        } else if (dependencia != null && dependencia.getPredecesora() == this) {
-            throw new IllegalArgumentException("Una actividad no puede ser su propia predecesora");
-        }
+        } 
+        
+        ValidadorCiclosDependencias.validarSinCiclos(this, dependencia);
         this.dependencia = dependencia;
     }
 
