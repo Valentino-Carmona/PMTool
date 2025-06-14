@@ -6,7 +6,7 @@ Feature: Planificación de actividades de un proyecto
 
   Scenario: Creación de una actividad con código único
     Given hay un proyecto en estado "PLANIFICADO"
-    When el Gerente de Proyecto define una nueva actividad con nombre "Nombre Test" y duracion 5 dias
+    When el Gerente de Proyecto define una nueva actividad con nombre "Nombre Test" y duración 5 días
     Then se asigna un código único a la actividad
     And la actividad se asocia al proyecto
     And su estado inicial es "PLANIFICADA"

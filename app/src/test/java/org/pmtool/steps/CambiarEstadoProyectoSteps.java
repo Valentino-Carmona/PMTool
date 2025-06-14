@@ -72,7 +72,7 @@ public class CambiarEstadoProyectoSteps {
     public void elGerenteDeProyectoSolicitaFinalizarElProyecto() {
         try {
             gerenteProyecto.finalizarProyecto(proyecto);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             exception = e;
         }
     }

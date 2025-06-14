@@ -41,4 +41,4 @@ Feature: Gestionar dependencias entre actividades
     When el Gerente de Proyecto define una dependencia Fin-a-Comienzo desde A hacia B
     And el Gerente de Proyecto define una dependencia Fin-a-Comienzo desde B hacia A 
     Then se muestra un mensaje de error indicando que no se pueden definir dependencias que generen ciclos
-    And no se registra la dependencia Fin-a-Comienzo desde B hacia A 
+    And no se registra la dependencia Fin-a-Comienzo desde B hacia A

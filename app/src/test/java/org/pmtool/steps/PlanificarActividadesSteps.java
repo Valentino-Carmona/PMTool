@@ -4,6 +4,7 @@ import org.pmtool.model.Proyecto;
 import org.pmtool.model.Actividad;
 import org.pmtool.manager.GerenteProyecto;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -19,11 +20,15 @@ public class PlanificarActividadesSteps {
     private GerenteProyecto gerenteProyecto;
     private Exception excepcion;
 
+    @Before
+    public void setUp() {
+        proyecto = new Proyecto("Proyecto Test", 100, 50000.0);
+        gerenteProyecto = new GerenteProyecto();
+    }
+
     @Given("hay un proyecto en estado {string}")
     public void hayUnProyectoEnEstado(String estado) {
-        proyecto = new Proyecto("Proyecto Test", 100, 50000.0);
         proyecto.setEstado(Proyecto.EstadoProyecto.valueOf(estado));
-        gerenteProyecto = new GerenteProyecto();
     }
 
     @When("el Gerente de Proyecto define una nueva actividad con nombre {string} y duración {int} días")
@@ -89,8 +94,17 @@ public class PlanificarActividadesSteps {
         assertEquals("No se pueden agregar actividades a un proyecto finalizado", excepcion.getMessage());
     }
 
+    @Given("un proyecto con actividades y dependencias definidas")
+    public void unProyectoConActividadesYDependenciasDefinidas() {
+        proyecto = new Proyecto("Proyecto Test", 100, 50000.0);
+        actividad = gerenteProyecto.crearActividad(proyecto, "Actividad 1", 5);
+        Actividad actividad2 = gerenteProyecto.crearActividad(proyecto, "Actividad 2", 3);
+        gerenteProyecto.configurarDependencia(actividad2, actividad, 0);
+    }
+
     @When("el gerente de proyecto planifica el proyecto con fecha de inicio {string}")
-    public void elGerenteDeProyectoPlanificaElProyectoConFechaDeInicio(LocalDate fechaInicio) {
+    public void elGerenteDeProyectoPlanificaElProyectoConFechaDeInicio(String fechaString) {
+        LocalDate fechaInicio = LocalDate.parse(fechaString);
         gerenteProyecto.planificarProyecto(proyecto, fechaInicio);
     }
 
@@ -109,6 +123,13 @@ public class PlanificarActividadesSteps {
                 .max(LocalDate::compareTo)
                 .orElse(null);
         assertEquals(maxFechaFin, proyecto.getFechaFinPlanificada());
+    }
+
+    @Given("un proyecto con actividades")
+    public void unProyectoConActividades() {
+        proyecto = new Proyecto("Proyecto Test", 100, 50000.0);
+        gerenteProyecto.crearActividad(proyecto, "Actividad 1", 5);
+        gerenteProyecto.crearActividad(proyecto, "Actividad 2", 3);
     }
 
     @When("el gerente de proyecto intenta planificar el proyecto con fecha de inicio nula")

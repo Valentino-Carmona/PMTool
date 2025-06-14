@@ -138,13 +138,19 @@ public class GestionarDependenciasSteps {
         assertNull(actividadA.getDependencia());
     }
 
+    @Given("existe un proyecto con una actividad planificada")
+    public void proyectoConActividadPlanificada() {
+        actividadA = gerenteProyecto.crearActividad(proyecto, "Actividad A", 5);
+        gerenteProyecto.planificarProyecto(proyecto, LocalDate.of(2025, 4, 1));
+    }
+
     @Then("se muestra un mensaje de error indicando que no se pueden definir dependencias que generen ciclos")
     public void seMuestraErrorPorCiclo() {
         assertNotNull(excepcion);
         assertEquals("La dependencia genera un ciclo", excepcion.getMessage());
     }
 
-    @And("no se registra la dependencia Fin-a-Comienzo desde B hacia A ")
+    @And("no se registra la dependencia Fin-a-Comienzo desde B hacia A")
     public void noSeRegistraDependenciaFinAComienzoDesdeB() {
         assertNull(actividadA.getDependencia());
         assertNotNull(actividadB.getDependencia());

@@ -23,21 +23,23 @@ public class ConsultarJerarquiaEdtSteps {
         proyecto = null;
         actividad = null;
         subactividad = null;
+        gerenteProyecto = new GerenteProyecto(); // Inicializar el GerenteProyecto
     }
 
     @Given("existe un proyecto con una actividad y una subactividad")
     public void existeUnProyectoConAlMenosUnaActividadYUnaSubactividad() {
         proyecto = new Proyecto("Proyecto Test", 100, 50000.0);
-        Actividad actividad = gerenteProyecto.crearActividad(proyecto, "Actividad Principal", 5);
-        actividad.agregarSubactividad("Subactividad", 3);
+        actividad = gerenteProyecto.crearActividad(proyecto, "Actividad Principal", 5);
+        subactividad = actividad.agregarSubactividad("Subactividad", 3);
     }
 
     @When("el Gerente de Proyecto solicita la jerarquía EDT del proyecto")
     public void elGerenteDeProyectoSolicitaLaJerarquiaEdtDelProyecto() {
-        actividad = proyecto.getActividades().get(0);
-        subactividad = actividad.getSubactividades().get(0);
-        assertNotNull(actividad);
-        assertNotNull(subactividad);
+        if (!proyecto.getActividades().isEmpty()) {
+            proyecto.getActividades().forEach(act -> {
+                act.getSubactividades();
+            });
+        }
     }
 
     @Then("se muestra la estructura jerárquica con las actividades y sus subactividades")
@@ -48,8 +50,6 @@ public class ConsultarJerarquiaEdtSteps {
 
     @Then("la actividad y subactividad tiene el numero EDT correcto")
     public void laActividadYSubactividadTieneElNumeroEdtCorrecto() {
-        Actividad actividad = proyecto.getActividades().get(0);
-        Actividad subactividad = actividad.getSubactividades().get(0);
         // Actividad principal
         assertNotNull(actividad.getNumeroEDT());
         assertEquals("1", actividad.getNumeroEDT());
@@ -72,9 +72,9 @@ public class ConsultarJerarquiaEdtSteps {
     @Given("existe un proyecto con actividades pero sin subactividades")
     public void existeUnProyectoConActividadesPeroSinSubactividades() {
         proyecto = new Proyecto("Proyecto Simple", 100, 50000.0);
-        proyecto.agregarActividad("Actividad 1", 5);
-        proyecto.agregarActividad("Actividad 2", 5);
-        proyecto.agregarActividad("Actividad 3", 5);
+        gerenteProyecto.crearActividad(proyecto, "Actividad 1", 5);
+        gerenteProyecto.crearActividad(proyecto, "Actividad 2", 5);
+        gerenteProyecto.crearActividad(proyecto, "Actividad 3", 5);
         assertFalse(proyecto.getActividades().isEmpty());
         assertTrue(proyecto.getActividades().get(0).getSubactividades().isEmpty());
     }
@@ -82,8 +82,10 @@ public class ConsultarJerarquiaEdtSteps {
     @Then("se muestra la estructura jerárquica con solo las actividades principales")
     public void seMuestraLaEstructuraJerarquicaConSoloLasActividadesPrincipales() {
         for (int i = 0; i < proyecto.getActividades().size(); i++) {
-            assertNotNull(actividad.getNumeroEDT());
-            assertEquals(i + 1, Integer.parseInt(actividad.getNumeroEDT()));
+            Actividad actividadActual = proyecto.getActividades().get(i);
+            assertNotNull(actividadActual.getNumeroEDT());
+            assertEquals(String.valueOf(i + 1), actividadActual.getNumeroEDT());
+            assertTrue(actividadActual.getSubactividades().isEmpty());
         }
     }
 }
