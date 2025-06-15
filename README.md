@@ -2,6 +2,8 @@
 
 [![Java CI with Gradle](https://github.com/sergiogvillagra/PMTool/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/sergiogvillagra/PMTool/actions/workflows/build-and-test.yml)
 
+[![Codecov](https://codecov.io/gh/ValentinoCarmonaS/PMTool-110113/branch/main/graph/badge.svg)](https://codecov.io/gh/ValentinoCarmonaS/PMTool-110113)
+
 PMTool es una aplicación Java para la gestión de proyectos que implementa la metodología EDT (Estructura de Desglose de Trabajo). Permite la creación y gestión de proyectos, actividades y subactividades con una estructura jerárquica.
 
 ## Instrucciones para Estudiantes
