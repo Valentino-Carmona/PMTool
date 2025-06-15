@@ -1,7 +1,9 @@
 package org.pmtool.steps;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertTrue;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;

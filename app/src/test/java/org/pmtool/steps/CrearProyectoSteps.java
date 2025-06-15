@@ -1,6 +1,8 @@
 package org.pmtool.steps;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -39,7 +41,7 @@ public class CrearProyectoSteps {
     assertEquals("Proyecto Test", proyecto.getNombre());
     assertTrue(proyecto.isPlanificado());
     assertEquals(100, proyecto.getTotalHorasEstimadas());
-    assertEquals(50000.0, proyecto.getPresupuesto());
+    assertEquals(50000.0, proyecto.getPresupuesto(), 0.001);
   }
 
   @And("el proyecto se crea con un identificador único")

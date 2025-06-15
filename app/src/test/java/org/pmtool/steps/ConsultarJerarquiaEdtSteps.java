@@ -1,6 +1,9 @@
 package org.pmtool.steps;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -34,12 +37,7 @@ public class ConsultarJerarquiaEdtSteps {
   @When("el Gerente de Proyecto solicita la jerarquía EDT del proyecto")
   public void elGerenteDeProyectoSolicitaLaJerarquiaEdtDelProyecto() {
     if (!proyecto.getActividades().isEmpty()) {
-      proyecto
-          .getActividades()
-          .forEach(
-              act -> {
-                act.getSubactividades();
-              });
+      proyecto.getActividades().forEach(Actividad::getSubactividades);
     }
   }
 
