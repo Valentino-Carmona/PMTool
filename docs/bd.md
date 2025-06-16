@@ -11,7 +11,7 @@ erDiagram
         date fechaFinPlanificada "Fecha de fin planificada"
         date fechaInicioReal "Fecha de inicio real"
         date fechaFinReal "Fecha de fin real"
-        int totalHorasEstimadas "Total de horas estimadas"
+        int horasEstimadas "Total de horas estimadas"
         double presupuesto "Presupuesto del proyecto"
         string estado "PLANIFICADO, EN_CURSO, FINALIZADO"
     }
