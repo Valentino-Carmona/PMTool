@@ -8,6 +8,7 @@ Feature: Inclusión de un nuevo proyecto en el portafolio
     Given existe un portafolio de proyectos
     When el Gerente de Portafolio solicita agregar un nuevo proyecto al portafolio
     Then se crea un nuevo proyecto con un nombre, el total de horas estimadas, el presupuesto y en estado "PLANIFICADO"
+    And el proyecto se crea con un identificador único
 
   Scenario: Intentar crear un proyecto con un nombre duplicado
     Given existe un portafolio de proyectos

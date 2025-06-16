@@ -42,11 +42,11 @@ La solución PMTool permite a los usuarios:
 3.1.6 Se asignará automáticamente un código único a cada proyecto creado.  
 
 3.2 **Gestión de Actividades**
-3.2.1 Será posible crear actividades principales con un nombre y horas estimadas dentro de un proyecto.  
+3.2.1 Será posible crear actividades principales con un nombre y dias estimados dentro de un proyecto.  
 3.2.1.1 Cuando se crea una actividad, el estado inicial de esta será "PLANIFICADA".  
 3.2.2 El sistema permitirá la creación de jerarquías en las actividades.  
 3.2.2.1 Los números EDT se asignarán automáticamente a las actividades según su jerarquía y serán únicos.  
-3.2.2.2 Será posible consultar la jerarquía completa de actividades de un proyecto, mostrando los atributos: número EDT, nombre, estado, fechas planificadas, fechas reales y horas estimadas.  
+3.2.2.2 Será posible consultar la jerarquía completa de actividades de un proyecto, mostrando los atributos: número EDT, nombre, estado, fechas planificadas, fechas reales y dias estimados.  
 3.2.3 Será posible crear subactividades dentro de actividades existentes.  
 3.2.4 Será posible establecer fechas planificadas de inicio y fin para actividades.  
 3.2.5 Será posible cambiar el estado de las actividades (PLANIFICADA, EN_EJECUCION, COMPLETADA).  
@@ -54,17 +54,13 @@ La solución PMTool permite a los usuarios:
 3.2.5.1.1 La fecha real de inicio se registrará automáticamente al activar una actividad.  
 3.2.5.2 Desactivar actividad (cambiar a COMPLETADA).  
 3.2.5.2.1 La fecha real de finalización se registrará automáticamente al completar una actividad.  
-3.2.6 Será posible establecer dependencias entre actividades con tipos específicos y retrasos/adelantos.
+3.2.6 Será posible establecer dependencias entre actividades con tipo Finish to Start y retrasos/adelantos.
 3.2.6.1 La fecha de inicio de la actividad dependiente se actualizará automáticamente según la dependencia definida.
-3.2.6.2 Será posible establecer dependencias entre actividades con tipo Finish to Start.
-3.2.6.3 Será posible establecer dependencias entre actividades con tipo Start to Start.
-3.2.6.4 Será posible establecer dependencias entre actividades con tipo Start to Finish.
-3.2.6.5 Será posible establecer dependencias entre actividades con tipo Finish to Finish.
-3.2.6.6 Será posible establecer en una misma dependencia un tiempo de espera entre una actividad y otra.
-3.2.6.7 Será posible establecer en una misma dependencia que una actividad comience antes de que la anterior termine completamente.
+3.2.6.2 Será posible establecer en una misma dependencia un tiempo de espera entre una actividad y otra (lag).
+3.2.6.3 Será posible establecer en una misma dependencia que una actividad comience antes de que la anterior termine completamente (lead).
 3.2.7 No se podrán agregar actividades a proyectos en estado "FINALIZADO".  
 3.2.8 No se podrán crear actividades o subactividades sin un nombre válido.  
-3.2.9 Al consultar la jerarquía EDT de un proyecto, se mostrarán los atributos: número EDT, nombre, estado, fechas planificadas, fechas reales, y horas estimadas de cada actividad.
+3.2.9 Al consultar la jerarquía EDT de un proyecto, se mostrarán los atributos: número EDT, nombre, estado, fechas planificadas, fechas reales, y dias estimados de cada actividad.
 
 ## 4. Requisitos No Funcionales
 
@@ -118,17 +114,13 @@ La solución PMTool permite a los usuarios:
 | 3.2.5.1.1  | La fecha real de inicio se registrará automáticamente al activar una actividad  | Funcional               | 2.5, 3.2.5.1, 1.4                   | Must          | PMTool-003               | US-07-activar-actividad.feature |
 | 3.2.5.2    | Desactivar actividad (cambiar a COMPLETADA)                                     | Funcional               | 2.5, 3.2.5, 3.2.5.2.1               | Must          | PMTool-003               | US-05-finalizar-actividad.feature |
 | 3.2.5.2.1  | La fecha real de finalización se registrará automáticamente al completar una actividad | Funcional               | 2.5, 3.2.5.2, 1.4                   | Must          | PMTool-003               | US-05-finalizar-actividad.feature |
-| 3.2.6      | Establecer dependencias entre actividades con tipos específicos y retrasos/adelantos | Funcional               | 2.3, 3.2.4, 3.2.6.1 to 3.2.6.7      | Must          | PMTool-002               | US-10-gestionar-dependencias.feature |
+| 3.2.6      | Establecer dependencias entre actividades con tipo Finish to Start y retrasos/adelantos | Funcional               | 2.3, 3.2.4, 3.2.6.1 to 3.2.6.3      | Must          | PMTool-002               | US-10-gestionar-dependencias.feature |
 | 3.2.6.1    | La fecha de inicio de la actividad dependiente se actualizará automáticamente según la dependencia definida | Funcional               | 3.2.6                               | Must          |                          | US-10-gestionar-dependencias.feature |
-| 3.2.6.2    | Establecer dependencias entre actividades con tipo Finish to Start              | Funcional               | 3.2.6                               | Must          | PMTool-002               | US-10-gestionar-dependencias.feature |
-| 3.2.6.3    | Establecer dependencias entre actividades con tipo Start to Start               | Funcional               | 3.2.6                               | Should        |                          | US-10-gestionar-dependencias.feature |
-| 3.2.6.4    | Establecer dependencias entre actividades con tipo Start to Finish              | Funcional               | 3.2.6                               | Should        |                          | US-10-gestionar-dependencias.feature |
-| 3.2.6.5    | Establecer dependencias entre actividades con tipo Finish to Finish             | Funcional               | 3.2.6                               | Should        |                          | US-10-gestionar-dependencias.feature |
-| 3.2.6.6    | Establecer, en una misma dependencia, un tiempo de espera entre una actividad y otra | Funcional               | 3.2.6                               | Must          | PMTool-002               | US-10-gestionar-dependencias.feature |
-| 3.2.6.7    | Establecer, en una misma dependencia, que una actividad comience antes de que la anterior termine completamente | Funcional               | 3.2.6                               | Should        |                          | US-10-gestionar-dependencias.feature |
+| 3.2.6.2    | Establecer, en una misma dependencia, un tiempo de espera entre una actividad y otra (lag) | Funcional               | 3.2.6                               | Must          | PMTool-002               | US-10-gestionar-dependencias.feature |
+| 3.2.6.3    | Establecer, en una misma dependencia, que una actividad comience antes de que la anterior termine completamente (lead) | Funcional               | 3.2.6                               | Should        |                          | US-10-gestionar-dependencias.feature |
 | 3.2.7      | No se podrán agregar actividades a proyectos finalizados                       | Funcional               | 3.1.4, 2.3                           | Must          | PMTool-003               | US-04-planificar-actividades.feature |
 | 3.2.8      | No se podrán crear actividades o subactividades sin un nombre válido           | Funcional               | 2.3, 3.2.1, 3.2.3                   | Must          | PMTool-002               | US-04-planificar-actividades.feature, US-08-agregar-subactividad.feature |
-| 3.2.9      | Mostrar atributos al consultar la jerarquía EDT: número EDT, nombre, estado, fechas planificadas, fechas reales, horas estimadas | Funcional               | 2.4, 3.2.2.2, 5.2                   | Should        | PMTool-002               | US-09-consultar-jerarquia-edt.feature |
+| 3.2.9      | Mostrar atributos al consultar la jerarquía EDT: número EDT, nombre, estado, fechas planificadas, fechas reales, dias estimados | Funcional               | 2.4, 3.2.2.2, 5.2                   | Should        | PMTool-002               | US-09-consultar-jerarquia-edt.feature |
 | 4.1        | El sistema estará implementado en lenguaje Java para garantizar portabilidad y robustez | No Funcional            | None                                  | Must          | None                     | None                     |
 | 5.1        | Integración de gestión de portafolio y proyectos individuales                   | Sistema                 | 1.1, 2.1, 3.1.1                     | Must          | PMTool-001               | US-03-crear-proyecto.feature |
 | 5.2        | Representación visual de la estructura EDT                                      | Sistema                 | 1.2, 2.4, 3.2.2.2, 3.2.9            | Should        | PMTool-002               | US-09-consultar-jerarquia-edt.feature |

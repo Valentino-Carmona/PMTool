@@ -3,7 +3,8 @@
 # 2. Verifica el formato del codigo estilo Java con Checkstyle
 # 3. Ejecuta todos los tests unitarios y de comportamiento con Cucumber
 # 4. Archiva los resultados de los tests y los artefactos compilados
-# 5. Se ejecuta en cada push a main y en pull requests
+# 5. Ejecuta la aplicación principal y captura su salida
+# 6. Se ejecuta en cada push a main y en pull requests
 
 name: Build and Test PMTool
 
@@ -37,6 +38,22 @@ jobs:
 
       - name: Build and test with Gradle
         run: ./gradlew build
+
+      - name: Run Main and capture output
+        run: ./gradlew run --quiet | tee main.log
+
+      - name: Upload Main console log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-console-log
+          path: main.log
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: ValentinoCarmonaS/PMTool-110113
 
       - name: Archive test results
         if: always()

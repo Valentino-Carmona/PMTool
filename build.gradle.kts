@@ -3,6 +3,9 @@ plugins {
     id("java")
     // Plugin para verificar estándares de código Java
     id("checkstyle")
+    id("jacoco")
+    id("com.diffplug.spotless") version "6.25.0"
+    id("pmd")
 }
 
 repositories {
@@ -20,6 +23,9 @@ allprojects {
 subprojects {
     apply(plugin = "java")
     apply(plugin = "checkstyle")
+    apply(plugin = "jacoco")
+    apply(plugin = "com.diffplug.spotless")
+    apply(plugin = "pmd")
 
     dependencies {
         // Dependencia de JUnit 5 para pruebas
@@ -77,9 +83,65 @@ subprojects {
 
     // Configuración de Checkstyle
     checkstyle {
-        toolVersion = "10.12.5"  // Versión de Checkstyle
+        toolVersion = "10.12.5"
         configFile = rootProject.file("config/checkstyle/checkstyle.xml")
-        isIgnoreFailures = true  // No falla el build si hay errores de estilo
-        isShowViolations = true  // Muestra las violaciones en la consola
+        isIgnoreFailures = true
+        isShowViolations = true
+    }
+
+    spotless {
+        java {
+            googleJavaFormat()
+            removeUnusedImports()
+            trimTrailingWhitespace()
+            endWithNewline()
+        }
+        kotlin {
+            ktlint()
+        }
+    }
+
+    pmd {
+        toolVersion = "6.55.0"
+        isIgnoreFailures = false
+        ruleSets = listOf()
+        ruleSetFiles = files("config/pmd/ruleset.xml")
+    }
+
+    tasks.withType<Pmd>().configureEach {
+        reports {
+            xml.required.set(false)
+            html.required.set(true)
+        }
+    }
+
+    // Configuración de JaCoCo para codecov
+    jacoco {
+        toolVersion = "0.8.11"
+    }
+
+    tasks.test {
+        finalizedBy(tasks.jacocoTestReport)
+    }
+
+    tasks.jacocoTestReport {
+        dependsOn(tasks.test)
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+    }
+
+    tasks.register("validate") {
+        group = "verification"
+        description = "Ejecuta todas las validaciones de código"
+        dependsOn(
+            tasks.checkstyleMain,
+            tasks.checkstyleTest,
+            tasks.spotlessApply,
+            tasks.spotlessCheck,
+            tasks.pmdMain,
+            tasks.pmdTest
+        )
     }
 }
