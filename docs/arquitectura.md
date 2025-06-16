@@ -59,6 +59,7 @@ AppService --> Domain : Ejecuta lógica de negocio
 
 * **Capa de Aplicación**: Orquesta la lógica de negocio implementada en clases como GerentePortafolio y GerenteProyecto, que coordinan las operaciones con las entidades del dominio.
 * **Capa de Dominio**: Contiene las reglas del negocio y las entidades del sistema como Proyecto, Actividad y las implementaciones de Dependencia.
+* * **Aclaracion**: Aunque se diseña la Base de Datos, esta no se implementa, por lo que no se incluye aun en el diagrama de contenedores.
 
 ---
 
