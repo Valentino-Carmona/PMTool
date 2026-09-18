@@ -2,14 +2,17 @@ package org.pmtool.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import org.pmtool.model.valueobject.Duracion;
+import org.pmtool.model.valueobject.NumeroEDT;
 import org.pmtool.validation.ValidadorCiclosDependencias;
 
 public class Actividad {
-  private String numeroEDT;
+  private NumeroEDT numeroEDT;
   private String nombre;
-  private int duracionDias;
+  private Duracion duracion;
   private IDependencia dependencia;
   private LocalDate fechaInicioPlanificada;
   private LocalDate fechaFinPlanificada;
@@ -25,9 +28,9 @@ public class Actividad {
   }
 
   public Actividad(String numeroEDT, String nombre, int duracionDias) {
-    this.numeroEDT = Objects.requireNonNull(numeroEDT, "El número EDT no puede ser nulo");
+    this.numeroEDT = NumeroEDT.of(Objects.requireNonNull(numeroEDT, "El número EDT no puede ser nulo"));
     this.nombre = Objects.requireNonNull(nombre, "El nombre no puede ser nulo");
-    this.duracionDias = duracionDias;
+    this.duracion = Duracion.of(duracionDias);
     this.estado = EstadoActividad.PLANIFICADA;
     this.subactividades = new ArrayList<>();
   }
@@ -63,11 +66,11 @@ public class Actividad {
       LocalDate inicio;
       LocalDate fin;
       if (dependencia != null) {
-        inicio = dependencia.calcularInicioDependiente(duracionDias);
-        fin = dependencia.calcularFinDependiente(duracionDias);
+        inicio = dependencia.calcularInicioDependiente(duracion.getDias());
+        fin = dependencia.calcularFinDependiente(duracion.getDias());
       } else {
         inicio = fechaInicioProyecto;
-        fin = inicio.plusDays(duracionDias);
+        fin = inicio.plusDays(duracion.getDias());
       }
       this.fechaInicioPlanificada = inicio;
       this.fechaFinPlanificada = fin;
@@ -88,13 +91,10 @@ public class Actividad {
     if (EstadoActividad.COMPLETADA.equals(this.estado)) {
       throw new IllegalStateException(
           "No se pueden agregar subactividades a una actividad completada");
-
-    } else if (duracionDias < 0) {
-      throw new IllegalArgumentException("La duración de la subactividad debe ser mayor que cero.");
     }
 
     int subNivel = this.subactividades.size() + 1;
-    Actividad subactividad = new Actividad((this.numeroEDT + "." + subNivel), nombre, duracionDias);
+    Actividad subactividad = new Actividad(this.numeroEDT.generarSubNivel(subNivel).getValor(), nombre, duracionDias);
     subactividades.add(subactividad);
     return subactividad;
   }
@@ -163,11 +163,11 @@ public class Actividad {
   }
 
   public String getNumeroEDT() {
-    return numeroEDT;
+    return numeroEDT.getValor();
   }
 
   public List<Actividad> getSubactividades() {
-    return subactividades;
+    return Collections.unmodifiableList(subactividades);
   }
 
   public String getNombre() {
@@ -195,7 +195,7 @@ public class Actividad {
   }
 
   public int getDuracionDias() {
-    return duracionDias;
+    return duracion.getDias();
   }
 
   public EstadoActividad getEstado() {
@@ -232,8 +232,8 @@ public class Actividad {
         + "  estado = "
         + estado
         + '\n'
-        + "  duracionDias = "
-        + duracionDias
+        + "  duracion = "
+        + duracion
         + '\n'
         + "  fechaInicioPlanificada = "
         + fechaInicioPlanificada

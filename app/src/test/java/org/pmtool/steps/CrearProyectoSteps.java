@@ -37,7 +37,7 @@ public class CrearProyectoSteps {
       "se crea un nuevo proyecto con un nombre, el total de horas estimadas, el presupuesto y en estado {string}")
   public void seCreaUnNuevoProyectoConCodigoUnico(String estado) {
     assertNotNull(proyecto);
-    assertTrue(proyecto.getNumero() > 1);
+    assertNotNull(proyecto.getId());
     assertEquals("Proyecto Test", proyecto.getNombre());
     assertTrue(proyecto.isPlanificado());
     assertEquals(100, proyecto.getTotalHorasEstimadas());
@@ -47,7 +47,7 @@ public class CrearProyectoSteps {
   @And("el proyecto se crea con un identificador único")
   public void elProyectoSeCreaConUnIdentificadorUnico() {
     assertNotNull(proyecto);
-    assertTrue(proyecto.getNumero() > 1);
+    assertNotNull(proyecto.getId());
   }
 
   @Given("ya existe un proyecto con el nombre {string}")

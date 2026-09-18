@@ -130,6 +130,18 @@ subprojects {
             xml.required.set(true)
             html.required.set(true)
         }
+        finalizedBy("jacocoTestCoverageVerification")
+    }
+
+    tasks.jacocoTestCoverageVerification {
+        dependsOn(tasks.jacocoTestReport)
+        violationRules {
+            rule {
+                limit {
+                    minimum = "0.80".toBigDecimal()
+                }
+            }
+        }
     }
 
     tasks.register("validate") {

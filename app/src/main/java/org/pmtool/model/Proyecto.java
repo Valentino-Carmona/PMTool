@@ -2,11 +2,12 @@ package org.pmtool.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public class Proyecto {
-  private static int contadorProyectos = 1;
-  private int numero;
+  private final UUID id;
   private String nombre;
   private LocalDate fechaInicioPlanificada;
   private LocalDate fechaFinPlanificada;
@@ -24,7 +25,7 @@ public class Proyecto {
   }
 
   public Proyecto(String nombre, int totalHorasEstimadas, double presupuesto) {
-    this.numero = ++contadorProyectos;
+    this.id = UUID.randomUUID();
     this.nombre = nombre;
     this.totalHorasEstimadas = totalHorasEstimadas;
     this.presupuesto = presupuesto;
@@ -81,9 +82,6 @@ public class Proyecto {
   public Actividad agregarActividad(String nombre, int duracionDias) {
     if (this.estado == EstadoProyecto.FINALIZADO) {
       throw new IllegalStateException("No se pueden agregar actividades a un proyecto finalizado");
-
-    } else if (duracionDias < 0) {
-      throw new IllegalArgumentException("La duración de la actividad debe ser mayor que cero.");
     }
 
     int nivel = this.actividades.size() + 1;
@@ -93,15 +91,11 @@ public class Proyecto {
   }
 
   public List<Actividad> getActividades() {
-    return actividades;
+    return Collections.unmodifiableList(actividades);
   }
 
-  public int getNumero() {
-    return numero;
-  }
-
-  public void setNumero(int numero) {
-    this.numero = numero;
+  public UUID getId() {
+    return id;
   }
 
   public String getNombre() {
@@ -179,8 +173,8 @@ public class Proyecto {
   @Override
   public String toString() {
     return "Proyecto{"
-        + "numero="
-        + numero
+        + "id="
+        + id
         + ", nombre='"
         + nombre
         + '\''
