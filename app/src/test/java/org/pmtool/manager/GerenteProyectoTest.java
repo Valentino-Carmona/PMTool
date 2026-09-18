@@ -44,4 +44,15 @@ public class GerenteProyectoTest {
     Assertions.assertNotNull(actividadB.getDependencia());
     Assertions.assertEquals(-1, actividadB.getDependencia().getLeadLag());
   }
+
+  @Test
+  void testCrearSubActividad() {
+    Actividad actividadPadre = proyecto.agregarActividad("Padre", 10);
+    Actividad subActividad = gerente.crearSubActividad(actividadPadre, "Hijo", 5);
+
+    Assertions.assertNotNull(subActividad);
+    Assertions.assertEquals("Hijo", subActividad.getNombre());
+    Assertions.assertEquals("1.1", subActividad.getNumeroEDT());
+    Assertions.assertEquals(1, actividadPadre.getSubactividades().size());
+  }
 }

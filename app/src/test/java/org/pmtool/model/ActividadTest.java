@@ -116,4 +116,61 @@ public class ActividadTest {
           actividad.activar();
         });
   }
+
+  @Test
+  void testToStringYAccesorios() {
+    actividad.setNombre("Nuevo Nombre");
+    Assertions.assertEquals("Nuevo Nombre", actividad.getNombre());
+    
+    actividad.setFechaInicioReal(LocalDate.of(2025, 1, 1));
+    actividad.setFechaFinReal(LocalDate.of(2025, 1, 10));
+    
+    Assertions.assertEquals(LocalDate.of(2025, 1, 1), actividad.getFechaInicioReal());
+    Assertions.assertEquals(LocalDate.of(2025, 1, 10), actividad.getFechaFinReal());
+    
+    String toString = actividad.toString();
+    Assertions.assertTrue(toString.contains("Nuevo Nombre"));
+    Assertions.assertTrue(toString.contains("1.1"));
+  }
+
+  @Test
+  void testActivarActividadYaEnEjecucion() {
+    actividad.activar();
+    Assertions.assertThrows(IllegalStateException.class, () -> {
+      actividad.activar();
+    });
+  }
+
+  @Test
+  void testDesactivarActividadYaCompletada() {
+    actividad.activar();
+    actividad.desactivar();
+    Assertions.assertThrows(IllegalStateException.class, () -> {
+      actividad.desactivar();
+    });
+  }
+
+  @Test
+  void testIsCompletadaRecursivo() {
+    Actividad sub1 = actividad.agregarSubactividad("Sub1", 5);
+    actividad.activar();
+    sub1.activar();
+    
+    // Como tiene subactividades, no está completada hasta que todas las sub lo estén.
+    Assertions.assertFalse(actividad.isCompletada());
+    
+    sub1.desactivar();
+    // Aún no hemos desactivado la padre
+    Assertions.assertFalse(actividad.isCompletada());
+    
+    actividad.desactivar();
+    Assertions.assertTrue(actividad.isCompletada());
+  }
+
+  @Test
+  void testCalcularFechasPlanificadasSinInicioValido() {
+    Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      actividad.calcularFechasPlanificadas(null);
+    });
+  }
 }

@@ -101,4 +101,54 @@ public class ProyectoTest {
           proyecto.finalizar();
         });
   }
+
+  @Test
+  void testToStringYAccesorios() {
+    proyecto.setNombre("Renombrado");
+    proyecto.setTotalHorasEstimadas(200);
+    proyecto.setPresupuesto(10000.0);
+    proyecto.setFechaInicioPlanificada(LocalDate.of(2025, 1, 1));
+    proyecto.setFechaFinPlanificada(LocalDate.of(2025, 2, 1));
+    proyecto.setFechaFinReal(LocalDate.of(2025, 3, 1));
+
+    Assertions.assertEquals("Renombrado", proyecto.getNombre());
+    Assertions.assertEquals(200, proyecto.getTotalHorasEstimadas());
+    Assertions.assertEquals(10000.0, proyecto.getPresupuesto());
+    Assertions.assertEquals(LocalDate.of(2025, 1, 1), proyecto.getFechaInicioPlanificada());
+    Assertions.assertEquals(LocalDate.of(2025, 2, 1), proyecto.getFechaFinPlanificada());
+    Assertions.assertNull(proyecto.getFechaInicioReal()); // Depende de las actividades
+    Assertions.assertEquals(LocalDate.of(2025, 3, 1), proyecto.getFechaFinReal());
+
+    String toString = proyecto.toString();
+    Assertions.assertTrue(toString.contains("Renombrado"));
+  }
+
+  @Test
+  void testEstadosYValidaciones() {
+    Assertions.assertTrue(proyecto.igualNombre("Proyecto Test"));
+    Assertions.assertFalse(proyecto.igualNombre("Otro"));
+    
+    // Inicia planificado
+    Assertions.assertFalse(proyecto.isEnCurso());
+    Assertions.assertFalse(proyecto.isFinalizado());
+    
+    proyecto.planificarProyecto(LocalDate.of(2025, 1, 1));
+    Assertions.assertTrue(proyecto.isEnCurso());
+    
+    // Si no hay actividades y forzamos finalizar (omitiendo la restricción o probando directamente)
+    // El test de finalizacion ya se encarga, así que solo probamos estado en curso
+  }
+
+  @Test
+  void testPlanificarProyectoConActividadesDependientes() {
+    Actividad a1 = proyecto.agregarActividad("A1", 10);
+    Actividad a2 = proyecto.agregarActividad("A2", 5);
+    a2.setDependencia(new FinishToStart(a1, 2));
+
+    proyecto.planificarProyecto(LocalDate.of(2025, 1, 1));
+
+    Assertions.assertEquals(LocalDate.of(2025, 1, 1), proyecto.getFechaInicioPlanificada());
+    // A1 termina el 2025-01-11. A2 empieza el 2025-01-13 + 1. Y termina el 19.
+    Assertions.assertEquals(LocalDate.of(2025, 1, 19), proyecto.getFechaFinPlanificada());
+  }
 }

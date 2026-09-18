@@ -30,4 +30,25 @@ public class FinishToStartTest {
           actividad.activar();
         });
   }
+  @Test
+  void testConstructorNulo() {
+    Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      new FinishToStart(null, 0);
+    }, "Debe lanzar excepcion si la predecesora es nula");
+  }
+
+  @Test
+  void testVerificarActivacionExitosa() {
+    Actividad predecesora = new Actividad("1", "Predecesora", 5);
+    predecesora.activar();
+    predecesora.desactivar(); // estado COMPLETADA
+
+    FinishToStart dependencia = new FinishToStart(predecesora, 0);
+    Actividad dependiente = new Actividad("2", "Dependiente", 5);
+    dependiente.setDependencia(dependencia);
+
+    Assertions.assertDoesNotThrow(() -> {
+      dependencia.verificarActivacion(dependiente);
+    });
+  }
 }
