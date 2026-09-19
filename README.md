@@ -16,7 +16,7 @@
 
 ### Academic Origin
 
-PMTool was developed iteratively across five engineering stages as part of the Software Engineering curriculum:
+PMTool was developed iteratively across five engineering stages as part of the Software Engineering I course:
 
 1. **Requirements Engineering:** reverse-engineered requirements, traceability matrix and stakeholder analysis.
 2. **Domain Modeling:** Domain Storytelling and domain process modeling.
@@ -32,7 +32,7 @@ The implemented system is a **Java 21 application managed with Gradle**, organiz
 
 The repository also contains architectural and engineering artifacts including C4 diagrams, a domain model, requirements traceability, stakeholder analysis, UI prototypes and a relational database design.
 
-For the complete engineering documentation, see the [Integrated System Documentation](docs/documentacion.md).
+For the complete engineering documentation, see the [Integrated System Documentation](docs/).
 
 ---
 
